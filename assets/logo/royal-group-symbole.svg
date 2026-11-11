@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Royal Group">
+  <title>Royal Group — symbole</title>
+  <defs><linearGradient id="rg-or" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbf1cf"/><stop offset=".35" stop-color="#f1d98b"/><stop offset=".62" stop-color="#d4af37"/><stop offset="1" stop-color="#9c7a22"/></linearGradient></defs>
+  <g fill="url(#rg-or)"><path d="M8 48L8 24L16.4 32.03L16.4 48Z"/><path d="M19 48L19 34.52L19.5 35L26.2 24.28L26.2 48Z"/><path d="M28.8 48L28.8 20.12L32 15L35.2 20.12L35.2 48Z"/><path d="M37.8 48L37.8 24.28L44.5 35L45 34.52L45 48Z"/><path d="M47.6 48L47.6 32.03L56 24L56 48Z"/><circle cx="8" cy="18.5" r="3.2"/><circle cx="32" cy="9.6" r="3.2"/><circle cx="56" cy="18.5" r="3.2"/><rect x="8" y="52.5" width="48" height="5.5" rx="2.75"/></g>
+</svg>
