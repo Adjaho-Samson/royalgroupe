@@ -30,7 +30,7 @@
  * Tant que cette valeur est vide, les boutons ouvrent WhatsApp avec le message
  * prérempli mais sans destinataire (mode démonstration).
  */
-const WHATSAPP_NUMBER = "";
+const WHATSAPP_NUMBER = "2290144603910";
 
 /**
  * Coordonnées affichées dans la section « Contact » et dans le pied de page.
@@ -38,10 +38,10 @@ const WHATSAPP_NUMBER = "";
  * le site affiche alors « Bientôt disponible ».
  */
 const CONTACT = {
-  phone: "",          // Téléphone, tel qu'il doit s'afficher. Ex. : "+229 XX XX XX XX XX"
-  whatsappLabel: "",  // (Facultatif) Texte affiché pour WhatsApp. Par défaut : le numéro ci-dessus.
-  email: "",          // Adresse e-mail. Ex. : "contact@votre-domaine.com"
-  facebook: "",       // Adresse complète de la page Facebook. Ex. : "https://www.facebook.com/votre-page"
+  phone: "+229 01 44 60 39 10",   // Téléphone (Bénin, plan de numérotation à 10 chiffres)
+  whatsappLabel: "+229 01 44 60 39 10",  // Texte affiché pour WhatsApp
+  email: "duhameldemesse@gmail.com",
+  facebook: "https://www.facebook.com/profile.php?id=61596542091779",
   instagram: "",      // Adresse complète du compte Instagram. Ex. : "https://www.instagram.com/votre-compte"
   otherSocials: [     // Autres réseaux : ajoutez, modifiez ou supprimez des lignes.
     { name: "TikTok", url: "" },
