@@ -114,7 +114,8 @@ Variables au début de `css/style.css` (partie « Variables »).
   dans les événements passés après ces dates.
 - **Photos :** tous les visuels sont des **images d'illustration générées par IA**,
   pas des photos d'événements Royal Group. Remplacez-les par de vraies photos dès que possible.
-- **Coordonnées :** aucune n'est renseignée.
+- **Coordonnées :** renseignées (téléphone / WhatsApp : +229 01 44 60 39 10, e-mail : duhameldemesse@gmail.com, page Facebook).
+  Instagram et les autres réseaux restent vides : le site affiche « Bientôt disponible » à leur place.
 
 ## 5. Mise en ligne
 
