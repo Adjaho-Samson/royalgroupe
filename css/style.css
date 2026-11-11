@@ -1,36 +1,4 @@
-/* ==========================================================================
-   ROYAL GROUP — FEUILLE DE STYLE PRINCIPALE
-   --------------------------------------------------------------------------
-   SOMMAIRE
-     01. Polices
-     02. Variables (couleurs, typographie, espacements)
-     03. Base et remise à zéro
-     04. Utilitaires (conteneur, icônes, accessibilité)
-     05. Typographie des sections (sur-titres, titres, textes d'introduction)
-     06. Boutons et étiquettes
-     07. En-tête et navigation (ordinateur + menu mobile)
-     08. Section 1 — Accueil (Hero)
-     09. Bandeau défilant
-     10. Section 2 — À propos
-     11. Section 3 — Événements passés
-     12. Section 4 — Prochains événements (billets)
-     13. Section 5 — Réservation WhatsApp
-     14. Section 6 — Contact
-     15. Pied de page
-     16. Éléments flottants (bouton WhatsApp, message d'information, progression)
-     17. Galerie agrandie (lightbox)
-     18. Animations d'apparition au défilement
-     19. Images clés des animations (@keyframes)
-     20. Préférences utilisateur (réduction des animations) et impression
 
-   Approche « mobile d'abord » : les styles de base ciblent les smartphones,
-   puis des @media (min-width) enrichissent la mise en page sur grands écrans.
-   ========================================================================== */
-
-
-/* ==========================================================================
-   01. POLICES (hébergées localement dans assets/fonts — aucune requête externe)
-   ========================================================================== */
 
 @font-face {
   font-family: "Anton";
@@ -56,15 +24,9 @@
   font-display: swap;
 }
 
-
-/* ==========================================================================
-   02. VARIABLES
-   ========================================================================== */
-
 :root {
   color-scheme: dark;
 
-  /* Couleurs — noir profond, or, blanc */
   --c-black: #050505;
   --c-ink: #0a0907;
   --c-surface: #100f0c;
@@ -81,16 +43,13 @@
   --c-line-gold: rgba(212, 175, 55, 0.32);
   --c-whatsapp: #25d366;
 
-  /* Dégradés dorés */
   --g-gold: linear-gradient(115deg, #fbf1cf 0%, #f1d98b 22%, #d4af37 52%, #b8912a 78%, #ecd27f 100%);
   --g-gold-text: linear-gradient(100deg, #c79b2b 0%, #f6e3a1 24%, #d4af37 46%, #fff3c4 60%, #c79b2b 80%, #f1d98b 100%);
 
-  /* Typographie */
   --font-display: "Anton", "Bebas Neue", "Oswald", Impact, "Haettenschweiler", "Arial Narrow Bold", sans-serif;
   --font-serif: "Playfair Display", "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  /* Mise en page */
   --container: 80rem;
   --gutter: clamp(1.25rem, 4vw, 3rem);
   --section-y: clamp(4.5rem, 8.5vw, 7rem);
@@ -98,7 +57,6 @@
   --radius: 4px;
   --radius-lg: 14px;
 
-  /* Courbes d'animation */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
@@ -108,11 +66,6 @@
     --header-h: 5.25rem;
   }
 }
-
-
-/* ==========================================================================
-   03. BASE ET REMISE À ZÉRO
-   ========================================================================== */
 
 *,
 *::before,
@@ -215,23 +168,16 @@ main:focus {
   outline: none;
 }
 
-/* Blocage du défilement lorsque le menu mobile ou la galerie sont ouverts */
 html.is-locked,
 html.is-locked body {
   overflow: hidden;
 }
-
-
-/* ==========================================================================
-   04. UTILITAIRES
-   ========================================================================== */
 
 .container {
   width: min(100% - (var(--gutter) * 2), var(--container));
   margin-inline: auto;
 }
 
-/* Bibliothèque d'icônes : présente dans la page mais invisible */
 .sprite {
   position: absolute;
   width: 0;
@@ -239,7 +185,6 @@ html.is-locked body {
   overflow: hidden;
 }
 
-/* Icônes au trait (interface) */
 .icon {
   flex: none;
   width: 1.25em;
@@ -251,13 +196,11 @@ html.is-locked body {
   stroke-linejoin: round;
 }
 
-/* Icônes pleines (logos WhatsApp, Facebook, Instagram…) */
 .icon--brand {
   fill: currentColor;
   stroke: none;
 }
 
-/* Texte réservé aux lecteurs d'écran */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -270,7 +213,6 @@ html.is-locked body {
   border: 0;
 }
 
-/* Lien d'évitement (navigation au clavier) */
 .skip-link {
   position: fixed;
   top: 0.75rem;
@@ -290,7 +232,6 @@ html.is-locked body {
   transform: none;
 }
 
-/* Texte doré (dégradé appliqué sur les lettres) */
 .brand__accent,
 .section-title em,
 .values__title em,
@@ -311,11 +252,6 @@ html.is-locked body {
   border-radius: var(--radius);
 }
 
-
-/* ==========================================================================
-   05. TYPOGRAPHIE DES SECTIONS
-   ========================================================================== */
-
 .section {
   position: relative;
   padding-block: var(--section-y);
@@ -326,7 +262,6 @@ html.is-locked body {
   margin-bottom: clamp(2rem, 5vw, 3.75rem);
 }
 
-/* Sur-titre : numéro de section + libellé */
 .eyebrow {
   display: flex;
   align-items: center;
@@ -359,12 +294,11 @@ html.is-locked body {
   opacity: 0.7;
 }
 
-/* Grand titre : capitales condensées + mot d'accent en italique doré */
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 6.6vw, 5.25rem);
   font-weight: 400;
-  /* Interlignage prévu pour les capitales accentuées (É, À…) */
+
   line-height: 1.18;
   letter-spacing: 0.005em;
   text-transform: uppercase;
@@ -399,7 +333,6 @@ html.is-locked body {
   color: var(--c-text);
 }
 
-/* Avertissement « contenu de démonstration » (affiché automatiquement par le JS) */
 .demo-note {
   display: flex;
   align-items: flex-start;
@@ -423,11 +356,6 @@ html.is-locked body {
 .demo-note strong {
   color: var(--c-gold-light);
 }
-
-
-/* ==========================================================================
-   06. BOUTONS ET ÉTIQUETTES
-   ========================================================================== */
 
 .btn {
   --btn-h: 3.25rem;
@@ -460,14 +388,12 @@ html.is-locked body {
   transition: transform 0.5s var(--ease-out);
 }
 
-/* Bouton principal doré */
 .btn--gold {
   color: #0a0803;
   background: var(--g-gold);
   box-shadow: 0 12px 32px -14px rgba(212, 175, 55, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-/* Reflet lumineux : il traverse le bouton au survol… */
 .btn--gold::after {
   content: "";
   position: absolute;
@@ -482,7 +408,6 @@ html.is-locked body {
   transition: transform 0.9s var(--ease-out);
 }
 
-/* …et passe de lui-même, de temps en temps, sur les boutons de réservation principaux */
 .hero__actions .btn--gold::after,
 .ticket--featured .ticket__cta::after,
 .chat .btn--gold::after {
@@ -498,7 +423,6 @@ html.is-locked body {
   transform: translateY(-1px);
 }
 
-/* Bouton secondaire : contour doré qui se remplit au survol */
 .btn--outline {
   color: var(--c-white);
   background: rgba(5, 5, 5, 0.3);
@@ -550,7 +474,6 @@ html.is-locked body {
   width: 100%;
 }
 
-/* Étiquettes (catégorie, « Démo », « Prochain rendez-vous »…) */
 .chip {
   display: inline-flex;
   align-items: center;
@@ -581,11 +504,6 @@ html.is-locked body {
   border: 1px dashed rgba(241, 217, 139, 0.7);
 }
 
-
-/* ==========================================================================
-   07. EN-TÊTE ET NAVIGATION
-   ========================================================================== */
-
 .site-header {
   position: fixed;
   top: 0;
@@ -594,8 +512,6 @@ html.is-locked body {
   z-index: 100;
 }
 
-/* Fond sombre et flouté, visible dès que l'on fait défiler la page.
-   (Placé sur un pseudo-élément pour ne pas perturber le menu mobile plein écran.) */
 .site-header::before {
   content: "";
   position: absolute;
@@ -623,8 +539,6 @@ html.is-locked body {
   margin-inline: auto;
 }
 
-/* --- Logo ---------------------------------------------------------------- */
-
 .brand {
   position: relative;
   z-index: 3;
@@ -650,7 +564,6 @@ html.is-locked body {
   color: var(--c-white);
 }
 
-/* Au survol, les barres de la couronne s'animent comme un égaliseur */
 .brand__bar {
   transform-box: fill-box;
   transform-origin: 50% 100%;
@@ -664,8 +577,6 @@ html.is-locked body {
 .brand:hover .brand__bar:nth-child(3) { animation-delay: -0.6s; }
 .brand:hover .brand__bar:nth-child(4) { animation-delay: -0.4s; }
 .brand:hover .brand__bar:nth-child(5) { animation-delay: -0.75s; }
-
-/* --- Bouton du menu mobile ------------------------------------------------ */
 
 .nav-toggle {
   position: relative;
@@ -718,8 +629,6 @@ html.is-locked body {
 .nav-toggle[aria-expanded="true"] .nav-toggle__icon span:last-child {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
-
-/* --- Menu mobile : panneau plein écran qui s'ouvre en cercle --------------- */
 
 .site-nav {
   position: fixed;
@@ -816,8 +725,6 @@ html.is-locked body {
   color: var(--c-gold-light);
 }
 
-/* --- Navigation ordinateur ------------------------------------------------ */
-
 @media (min-width: 1180px) {
   .nav-toggle {
     display: none;
@@ -859,7 +766,6 @@ html.is-locked body {
     transition: color 0.3s ease;
   }
 
-  /* Soulignement doré animé */
   .site-nav__link::after {
     content: "";
     position: absolute;
@@ -898,11 +804,6 @@ html.is-locked body {
   }
 }
 
-
-/* ==========================================================================
-   08. SECTION 1 — ACCUEIL (HERO)
-   ========================================================================== */
-
 .hero {
   position: relative;
   display: flex;
@@ -916,10 +817,6 @@ html.is-locked body {
   background: var(--c-black);
 }
 
-/* --- Arrière-plan ---------------------------------------------------------- */
-
-/* Le fond affiche d'abord une miniature floutée (quelques octets, intégrée ici),
-   puis la photographie nette vient la recouvrir dès qu'elle est chargée. */
 .hero__media {
   position: absolute;
   inset: 0;
@@ -935,14 +832,12 @@ html.is-locked body {
   }
 }
 
-/* Calque 1 : déplacement lié au défilement (variable --scroll pilotée en JS) */
 .hero__parallax {
   position: absolute;
   inset: 0;
   transform: translate3d(0, calc(var(--scroll, 0) * 1px), 0);
 }
 
-/* Calque 2 : léger effet de profondeur lié à la souris (--px / --py pilotées en JS) */
 .hero__depth {
   position: absolute;
   inset: -3.5%;
@@ -955,7 +850,6 @@ html.is-locked body {
   height: 100%;
 }
 
-/* Calque 3 : la photographie, animée d'un lent mouvement de zoom */
 .hero__img {
   width: 100%;
   height: 100%;
@@ -966,12 +860,10 @@ html.is-locked body {
   animation: hero-kenburns 30s ease-in-out infinite alternate;
 }
 
-/* Tant que la photographie n'est pas chargée, seule la miniature floutée est visible */
 .hero__img.is-loading {
   opacity: 0;
 }
 
-/* Vidéo d'arrière-plan facultative (voir SETTINGS.heroVideo dans js/script.js) */
 .hero__video {
   position: absolute;
   inset: 0;
@@ -992,7 +884,6 @@ html.is-locked body {
   }
 }
 
-/* Faisceaux lumineux qui balaient lentement la scène */
 .hero__beams {
   position: absolute;
   inset: 0;
@@ -1037,7 +928,6 @@ html.is-locked body {
   }
 }
 
-/* Poussières dorées en suspension (éléments créés par le JS) */
 .hero__dust {
   position: absolute;
   inset: 0;
@@ -1057,9 +947,6 @@ html.is-locked body {
   animation: hero-dust var(--d) linear var(--delay) infinite;
 }
 
-/* Voile sombre : garantit la lisibilité du texte + grain « pellicule ».
-   Sur mobile, le contenu est calé en bas de l'écran : le voile s'assombrit donc
-   en partant du bas (distances fixes), et un second dégradé protège l'en-tête. */
 .hero__veil {
   position: absolute;
   inset: 0;
@@ -1084,23 +971,17 @@ html.is-locked body {
   }
 }
 
-/* --- Contenu ------------------------------------------------------------- */
-
 .hero__content {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* Le contenu s'estompe légèrement quand on quitte le Hero (--progress pilotée en JS) */
+
   opacity: calc(1 - var(--progress, 0) * 1.25);
   transform: translate3d(0, calc(var(--progress, 0) * -2.5rem), 0);
 }
 
-/* Sur mobile, le Hero est composé pour tenir dans la hauteur de l'écran : le titre
-   s'adapte à la place disponible, et cette ligne d'introduction ne s'affiche que s'il
-   reste assez de hauteur. Les calculs utilisent l'unité « svh » (hauteur d'écran stable,
-   barres du navigateur déduites) ; la variante en « vh » sert aux anciens navigateurs. */
 .hero__eyebrow {
   display: flex;
   flex-wrap: wrap;
@@ -1122,7 +1003,6 @@ html.is-locked body {
   animation: hero-rise 1s var(--ease-out) 0.2s both;
 }
 
-/* Sur mobile, la ligne tient en trois mots : le dernier n'apparaît qu'à partir des tablettes */
 @media (max-width: 767px) {
   .hero__eyebrow span:last-child {
     display: none;
@@ -1150,12 +1030,11 @@ html.is-locked body {
 .hero__title {
   margin-bottom: 0.75rem;
   font-family: var(--font-display);
-  /* Taille limitée à la fois par la largeur (15.4vw) et par la hauteur disponible (svh).
-     À la taille minimale, chaque phrase tient sur une seule ligne. */
+
   font-size: clamp(min(10.3vw, 3.5rem), calc(21.9vh - 97px), 15.4vw);
   font-size: clamp(min(10.3vw, 3.5rem), calc(21.9svh - 97px), 15.4vw);
   font-weight: 400;
-  /* Interligne : assez d'air pour que les accents des capitales (É) ne touchent pas la ligne du dessus */
+
   line-height: 1.14;
   letter-spacing: 0.012em;
   text-transform: uppercase;
@@ -1166,8 +1045,6 @@ html.is-locked body {
   display: block;
 }
 
-/* Chaque mot glisse vers le haut depuis un masque invisible.
-   Les deux mots d'une phrase tiennent sur la même ligne dès que la place le permet. */
 .hero__word {
   display: inline-block;
   padding: 0.2em 0;
@@ -1176,8 +1053,6 @@ html.is-locked body {
   vertical-align: top;
 }
 
-/* Le léger débord (padding + marge négative) laisse la place aux accents des capitales :
-   sans lui, le dégradé doré ne serait pas peint derrière l'accent de « É ». */
 .hero__word > span {
   display: inline-block;
   padding: 0.16em 0 0.04em;
@@ -1192,8 +1067,6 @@ html.is-locked body {
 .hero__line:nth-child(2) .hero__word:nth-child(1) > span { --i: 2; }
 .hero__line:nth-child(2) .hero__word:nth-child(2) > span { --i: 3; }
 
-/* Seconde phrase : sur ordinateur, le reflet doré se déplace lentement dans les lettres
-   (effet réservé aux écrans avec souris, pour ne pas solliciter inutilement les mobiles) */
 @media (min-width: 1024px) and (hover: hover) {
   .hero__line--gold .hero__word > span {
     animation: hero-word 1.15s var(--ease-out) both, gold-shift 9s ease-in-out 2.5s infinite alternate;
@@ -1227,8 +1100,6 @@ html.is-locked body {
   letter-spacing: clamp(0.06em, calc(1.64vw - 4.36px), 0.16em);
 }
 
-/* Les animations d'entrée patientent un court instant, le temps que la police
-   des titres soit chargée (classe « is-waiting » posée puis retirée par le JS) */
 .is-waiting .hero__eyebrow,
 .is-waiting .hero__word > span,
 .is-waiting .hero__text,
@@ -1236,8 +1107,6 @@ html.is-locked body {
 .is-waiting .hero__scroll {
   animation-play-state: paused;
 }
-
-/* --- Aperçu du prochain événement (carte « verre ») ---------------------- */
 
 .hero__next {
   width: 100%;
@@ -1250,7 +1119,7 @@ html.is-locked body {
   align-items: center;
   gap: 0.75rem;
   margin-top: 1rem;
-  /* Mobile : la carte laisse, à sa droite, la place du bouton WhatsApp flottant */
+
   margin-right: 3.9rem;
   padding: 0.35rem 0.75rem 0.35rem 0.35rem;
   background: rgba(12, 11, 9, 0.6);
@@ -1306,7 +1175,6 @@ html.is-locked body {
   color: var(--c-gold-light);
 }
 
-/* Étiquette « Démo » posée à cheval sur le bord supérieur de la carte */
 .hero-next__demo {
   position: absolute;
   top: 0;
@@ -1338,13 +1206,11 @@ html.is-locked body {
   color: var(--c-muted);
 }
 
-/* Petits écrans : le lieu et le décompte en jours laissent place à un simple « J-12 » */
 .hero-next__place,
 .hero-next__count {
   display: none;
 }
 
-/* Très petits téléphones : la vignette s'efface pour laisser toute la place au titre */
 @media (max-width: 349px) {
   .hero-next {
     grid-template-columns: minmax(0, 1fr);
@@ -1391,13 +1257,9 @@ html.is-locked body {
   color: var(--c-dim);
 }
 
-/* --- Invitation à défiler (grands écrans) -------------------------------- */
-
 .hero__scroll {
   display: none;
 }
-
-/* --- Hero : tablettes et ordinateurs --------------------------------------- */
 
 @media (min-width: 560px) {
   .hero__actions {
@@ -1434,8 +1296,6 @@ html.is-locked body {
     letter-spacing: 0.32em;
   }
 
-  /* Deux lignes : « Vivez l'expérience. » / « Ressentez l'énergie. »
-     La taille suit la largeur de l'écran, sans jamais faire déborder le Hero en hauteur. */
   .hero__title {
     margin-bottom: 1.5rem;
     font-size: clamp(3.25rem, min(10.4vw, 43.8vh - 215px), 9.4rem);
@@ -1462,7 +1322,6 @@ html.is-locked body {
   }
 }
 
-/* Téléphones tenus à l'horizontale : mise en page resserrée */
 @media (min-width: 560px) and (max-height: 480px) {
   .hero {
     padding-top: calc(var(--header-h) + 1rem);
@@ -1490,7 +1349,6 @@ html.is-locked body {
     font-size: clamp(3.25rem, min(9.6vw, 43.8vh - 194px), 9.4rem);
   }
 
-  /* La carte du prochain événement se place en bas à droite */
   .hero__next {
     position: absolute;
     right: 0;
@@ -1550,7 +1408,6 @@ html.is-locked body {
   }
 }
 
-/* Écrans peu hauts (ordinateurs portables, téléphones en paysage) */
 @media (min-width: 1100px) and (max-height: 720px) {
   .hero {
     padding-bottom: 5.25rem;
@@ -1560,7 +1417,6 @@ html.is-locked body {
     margin-bottom: 1.5rem;
   }
 
-  /* L'invitation à défiler se réduit à son trait animé */
   .hero__scroll-label {
     display: none;
   }
@@ -1569,11 +1425,6 @@ html.is-locked body {
     height: 2rem;
   }
 }
-
-
-/* ==========================================================================
-   09. BANDEAU DÉFILANT
-   ========================================================================== */
 
 .marquee {
   position: relative;
@@ -1588,7 +1439,6 @@ html.is-locked body {
   width: max-content;
 }
 
-/* Le défilement démarre lorsque le JS a dupliqué le contenu (boucle sans coupure) */
 .marquee__track.is-ready {
   animation: marquee var(--marquee-duration, 40s) linear infinite;
 }
@@ -1624,24 +1474,17 @@ html.is-locked body {
   fill: var(--c-gold-light);
 }
 
-/* Navigateurs sans contour de texte : texte plein */
 @supports not (-webkit-text-stroke: 1px #000) {
   .marquee__item {
     color: rgba(212, 175, 55, 0.55);
   }
 }
 
-
-/* ==========================================================================
-   10. SECTION 2 — À PROPOS
-   ========================================================================== */
-
 .about {
   overflow: hidden;
   overflow: clip;
 }
 
-/* Halo doré d'ambiance */
 .about::before {
   content: "";
   position: absolute;
@@ -1679,8 +1522,6 @@ html.is-locked body {
   text-wrap: pretty;
 }
 
-/* --- Cadres photographiques ------------------------------------------------ */
-
 .frame {
   position: relative;
   overflow: hidden;
@@ -1692,11 +1533,10 @@ html.is-locked body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* --parallax : décalage piloté par le JS au défilement · --zoom : zoom d'apparition */
+
   transform: translate3d(0, var(--parallax, 0px), 0) scale(var(--zoom, 1));
 }
 
-/* Images avec parallaxe : un peu plus hautes que leur cadre pour pouvoir glisser */
 .frame img[data-parallax] {
   position: absolute;
   top: -8%;
@@ -1709,7 +1549,6 @@ html.is-locked body {
   aspect-ratio: 4 / 5;
 }
 
-/* Filet doré décalé derrière la photo principale */
 .about__row:not(.about__row--reverse) .about__visual::before {
   content: "";
   position: absolute;
@@ -1721,7 +1560,6 @@ html.is-locked body {
   border-radius: var(--radius);
 }
 
-/* Petite photo superposée */
 .frame--inset {
   position: absolute;
   right: 0;
@@ -1746,8 +1584,6 @@ html.is-locked body {
   border: 1px solid var(--c-line-gold);
   border-radius: var(--radius);
 }
-
-/* --- Sceau rotatif --------------------------------------------------------- */
 
 .seal {
   position: absolute;
@@ -1787,8 +1623,6 @@ html.is-locked body {
   transform: translate(-50%, -52%);
 }
 
-/* --- Nos univers ----------------------------------------------------------- */
-
 .pillars {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1818,8 +1652,6 @@ html.is-locked body {
   background: var(--g-gold);
   transform: rotate(45deg);
 }
-
-/* --- Vision et mission ------------------------------------------------------ */
 
 .statement {
   display: grid;
@@ -1865,8 +1697,6 @@ html.is-locked body {
   text-wrap: pretty;
 }
 
-/* --- Valeurs ---------------------------------------------------------------- */
-
 .values {
   position: relative;
   margin-top: clamp(4.5rem, 10vw, 8rem);
@@ -1882,7 +1712,6 @@ html.is-locked body {
   color: var(--c-white);
 }
 
-/* Grille à filets fins : l'espace de 1 px laisse apparaître la couleur de fond */
 .values__grid {
   display: grid;
   gap: 1px;
@@ -1897,8 +1726,6 @@ html.is-locked body {
   background: var(--c-black);
 }
 
-/* Apparition : la carte elle-même reste opaque (sinon le fond de la grille, qui dessine
-   les filets, apparaîtrait comme un aplat gris) ; c'est son contenu qui se dévoile. */
 .js .value-card[data-reveal] {
   opacity: 1;
   transform: none;
@@ -1916,7 +1743,6 @@ html.is-locked body {
   transform: none;
 }
 
-/* Halo qui suit la souris (--mx / --my pilotées en JS) */
 .value-card::before {
   content: "";
   position: absolute;
@@ -1998,8 +1824,6 @@ html.is-locked body {
   color: var(--c-muted);
 }
 
-/* --- À propos : tablettes et ordinateurs -------------------------------------- */
-
 @media (min-width: 640px) {
   .values__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2035,11 +1859,6 @@ html.is-locked body {
   }
 }
 
-
-/* ==========================================================================
-   11. SECTION 3 — ÉVÉNEMENTS PASSÉS
-   ========================================================================== */
-
 .past {
   background: linear-gradient(180deg, var(--c-black) 0%, var(--c-ink) 16%, var(--c-ink) 84%, var(--c-black) 100%);
 }
@@ -2050,8 +1869,6 @@ html.is-locked body {
   gap: clamp(1rem, 2vw, 1.75rem);
 }
 
-/* Tablettes : 2 cartes par rangée. Si le nombre de cartes est impair, la première
-   (l'événement le plus récent) occupe toute la largeur : aucune rangée incomplète. */
 @media (min-width: 600px) and (max-width: 899.98px) {
   .past__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2063,8 +1880,6 @@ html.is-locked body {
   }
 }
 
-/* Ordinateurs : 3 cartes par rangée. Selon le nombre de cartes, les premières
-   rangées passent à 2 cartes plus larges, pour que la grille soit toujours complète. */
 @media (min-width: 900px) {
   .past__grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -2074,10 +1889,9 @@ html.is-locked body {
     grid-column: span 2;
   }
 
-  /* Il resterait 2 cartes : la première rangée compte 2 cartes larges */
   .past-card:first-child:nth-last-child(3n + 2),
   .past-card:first-child:nth-last-child(3n + 2) + .past-card,
-  /* Il resterait 1 carte : les deux premières rangées comptent 2 cartes larges */
+
   .past-card:first-child:nth-last-child(3n + 1),
   .past-card:first-child:nth-last-child(3n + 1) + .past-card,
   .past-card:first-child:nth-last-child(3n + 1) + .past-card + .past-card,
@@ -2086,8 +1900,6 @@ html.is-locked body {
     aspect-ratio: 5 / 4;
   }
 }
-
-/* --- Carte d'événement passé (photo plein cadre + texte superposé) ---------- */
 
 .past-card {
   position: relative;
@@ -2108,7 +1920,6 @@ html.is-locked body {
   transition: transform 1.4s var(--ease-out);
 }
 
-/* Dégradé sombre pour la lisibilité du texte */
 .past-card::before {
   content: "";
   position: absolute;
@@ -2117,7 +1928,6 @@ html.is-locked body {
   background: linear-gradient(180deg, rgba(5, 5, 5, 0.42) 0%, rgba(5, 5, 5, 0) 26%, rgba(5, 5, 5, 0.18) 48%, rgba(5, 5, 5, 0.94) 100%);
 }
 
-/* Filet doré intérieur qui apparaît au survol */
 .past-card::after {
   content: "";
   position: absolute;
@@ -2208,7 +2018,6 @@ html.is-locked body {
   height: 0.95rem;
 }
 
-/* Description : toujours visible sur écran tactile, dévoilée au survol sur ordinateur */
 .past-card__desc {
   display: grid;
   grid-template-rows: 1fr;
@@ -2228,7 +2037,6 @@ html.is-locked body {
   height: 0.7rem;
 }
 
-/* Bouton transparent couvrant toute la carte : ouvre la galerie agrandie */
 .past-card__open {
   position: absolute;
   inset: 0;
@@ -2275,7 +2083,6 @@ html.is-locked body {
   }
 }
 
-/* État vide (aucun événement passé à afficher) */
 .empty-state {
   grid-column: 1 / -1;
   padding: clamp(2rem, 5vw, 3.5rem);
@@ -2285,7 +2092,6 @@ html.is-locked body {
   border-radius: var(--radius-lg);
 }
 
-/* Visuel de remplacement lorsqu'un événement n'a pas (encore) de photo */
 .media-fallback {
   position: absolute;
   inset: 0;
@@ -2303,11 +2109,6 @@ html.is-locked body {
   aspect-ratio: 1;
   opacity: 0.9;
 }
-
-
-/* ==========================================================================
-   12. SECTION 4 — PROCHAINS ÉVÉNEMENTS (BILLETS)
-   ========================================================================== */
 
 .upcoming {
   overflow: hidden;
@@ -2334,8 +2135,6 @@ html.is-locked body {
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(1.25rem, 2.5vw, 2rem);
 }
-
-/* --- Billet : média + informations + talon détachable ----------------------- */
 
 .ticket {
   position: relative;
@@ -2367,7 +2166,7 @@ html.is-locked body {
   height: 100%;
   object-fit: cover;
   object-position: 50% 38%;
-  /* --rx / --ry : légère inclinaison qui suit la souris (effet de profondeur, piloté par le JS) */
+
   transform: perspective(56rem) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--zoom, 1.01));
   transition: transform 0.9s var(--ease-out);
 }
@@ -2384,7 +2183,6 @@ html.is-locked body {
   pointer-events: none;
 }
 
-/* Bouton transparent : agrandit l'affiche */
 .ticket__zoom {
   position: absolute;
   inset: 0;
@@ -2428,7 +2226,6 @@ html.is-locked body {
   border-color: transparent;
 }
 
-/* Pastille de date */
 .ticket__date {
   position: absolute;
   top: 1rem;
@@ -2523,7 +2320,6 @@ html.is-locked body {
   text-wrap: pretty;
 }
 
-/* Talon : ligne de perforation + encoches latérales */
 .ticket__stub {
   position: relative;
   display: grid;
@@ -2609,8 +2405,6 @@ html.is-locked body {
   letter-spacing: 0.12em;
 }
 
-/* --- Compte à rebours (billet mis en avant) ---------------------------------- */
-
 .countdown {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2656,8 +2450,6 @@ html.is-locked body {
   border-radius: 6px;
 }
 
-/* --- Tuile « D'autres dates arrivent » ---------------------------------------- */
-
 .ticket-more {
   position: relative;
   display: grid;
@@ -2697,10 +2489,8 @@ html.is-locked body {
   margin-top: 0.5rem;
 }
 
-/* --- Billets : tablettes ------------------------------------------------------- */
-
 @media (min-width: 640px) {
-  /* Photo à gauche, informations à droite, talon en bas sur toute la largeur */
+
   .ticket {
     grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
   }
@@ -2727,27 +2517,22 @@ html.is-locked body {
     width: auto;
   }
 
-  /* Billet mis en avant : le compte à rebours occupe toute la largeur du talon */
   .ticket--featured .countdown {
     grid-column: 1 / -1;
   }
 }
-
-/* --- Billets : ordinateurs ------------------------------------------------------ */
 
 @media (min-width: 1040px) {
   .upcoming__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* Le billet mis en avant et un dernier élément isolé occupent toute la largeur */
   .ticket--featured,
   .upcoming__list > :only-child,
   .upcoming__list > :last-child:nth-child(even) {
     grid-column: 1 / -1;
   }
 
-  /* Billet mis en avant : trois volets — photo | informations | talon vertical */
   .ticket--featured {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr) minmax(19.5rem, 0.78fr);
   }
@@ -2812,11 +2597,6 @@ html.is-locked body {
   }
 }
 
-
-/* ==========================================================================
-   13. SECTION 5 — RÉSERVATION WHATSAPP
-   ========================================================================== */
-
 .booking {
   overflow: hidden;
   overflow: clip;
@@ -2847,8 +2627,6 @@ html.is-locked body {
   min-width: 0;
 }
 
-/* --- Étapes ---------------------------------------------------------------- */
-
 .steps {
   display: grid;
   margin-top: 2.25rem;
@@ -2866,7 +2644,6 @@ html.is-locked body {
   padding-bottom: 0;
 }
 
-/* Trait vertical reliant les numéros */
 .steps__item:not(:last-child)::before {
   content: "";
   position: absolute;
@@ -2903,8 +2680,6 @@ html.is-locked body {
   line-height: 1.6;
   color: var(--c-muted);
 }
-
-/* --- Module de réservation (aperçu de conversation) --------------------------- */
 
 .chat {
   position: relative;
@@ -2977,7 +2752,6 @@ html.is-locked body {
   color: var(--c-gold-light);
 }
 
-/* Liste déroulante personnalisée */
 .select {
   position: relative;
   margin-bottom: 1.25rem;
@@ -3019,7 +2793,6 @@ html.is-locked body {
   transform: translateY(-50%);
 }
 
-/* Bulle du message prérempli */
 .chat__bubble {
   position: relative;
   margin-left: clamp(0.75rem, 6%, 2rem);
@@ -3079,17 +2852,11 @@ html.is-locked body {
   }
 }
 
-
-/* ==========================================================================
-   14. SECTION 6 — CONTACT
-   ========================================================================== */
-
 .contact {
   overflow: hidden;
   overflow: clip;
 }
 
-/* Faisceau doré tombant du haut de la section, comme une poursuite de scène */
 .contact__glow {
   position: absolute;
   top: 0;
@@ -3117,8 +2884,6 @@ html.is-locked body {
 .contact__list {
   border-top: 1px solid var(--c-line);
 }
-
-/* --- Ligne de contact --------------------------------------------------------- */
 
 .contact-item {
   position: relative;
@@ -3162,7 +2927,6 @@ html.is-locked body {
   color: var(--c-dim);
 }
 
-/* Par défaut : coordonnée non renseignée (« Bientôt disponible ») */
 .contact-item__value {
   grid-area: value;
   align-self: start;
@@ -3173,7 +2937,6 @@ html.is-locked body {
   color: var(--c-dim);
 }
 
-/* Coordonnée renseignée : la ligne devient un lien */
 .contact-item.is-active .contact-item__value {
   font-weight: 600;
   font-style: normal;
@@ -3188,7 +2951,6 @@ html.is-locked body {
   color: var(--c-gold-light);
 }
 
-/* Le lien principal s'étend à toute la ligne */
 .contact-item__link--stretched::after {
   content: "";
   position: absolute;
@@ -3232,11 +2994,6 @@ html.is-locked body {
     top: calc(var(--header-h) + 2rem);
   }
 }
-
-
-/* ==========================================================================
-   15. PIED DE PAGE
-   ========================================================================== */
 
 .site-footer {
   position: relative;
@@ -3314,7 +3071,6 @@ html.is-locked body {
   height: 1.1rem;
 }
 
-/* Signature géante en filigrane */
 .site-footer__giant {
   margin-top: clamp(2rem, 5vw, 3.5rem);
   font-family: var(--font-display);
@@ -3341,7 +3097,7 @@ html.is-locked body {
   gap: 0.5rem 2rem;
   margin-top: 1.25rem;
   padding-top: 1.25rem;
-  /* Marge à droite pour ne pas passer sous le bouton WhatsApp flottant */
+
   padding-right: 4rem;
   font-size: 0.8rem;
   line-height: 1.5;
@@ -3376,13 +3132,6 @@ html.is-locked body {
   }
 }
 
-
-/* ==========================================================================
-   16. ÉLÉMENTS FLOTTANTS
-   ========================================================================== */
-
-/* --- Barre de progression de lecture ----------------------------------------- */
-
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -3400,8 +3149,6 @@ html.is-locked body {
   transform: scaleX(var(--page-progress, 0));
   transform-origin: left center;
 }
-
-/* --- Bouton WhatsApp flottant (discret, présent sur toutes les sections) ---------- */
 
 .wa-float {
   position: fixed;
@@ -3429,7 +3176,6 @@ html.is-locked body {
   height: 1.3rem;
 }
 
-/* Onde discrète pour signaler le bouton */
 .wa-float::before {
   content: "";
   position: absolute;
@@ -3469,14 +3215,11 @@ html.is-locked body {
   opacity: 1;
 }
 
-/* Masqué lorsque le menu mobile ou la galerie sont ouverts */
 html.is-locked .wa-float {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0s linear 0.3s;
 }
-
-/* --- Message d'information ------------------------------------------------------ */
 
 .toast {
   position: fixed;
@@ -3509,11 +3252,6 @@ html.is-locked .wa-float {
 .toast strong {
   color: var(--c-gold-light);
 }
-
-
-/* ==========================================================================
-   17. GALERIE AGRANDIE (LIGHTBOX)
-   ========================================================================== */
 
 .lightbox {
   position: fixed;
@@ -3664,15 +3402,6 @@ html.is-locked .wa-float {
   }
 }
 
-
-/* ==========================================================================
-   18. ANIMATIONS D'APPARITION AU DÉFILEMENT
-   --------------------------------------------------------------------------
-   Sans JavaScript, tout le contenu reste visible. Lorsque le JS est actif
-   (classe « js » sur <html>), les éléments [data-reveal] sont masqués puis
-   révélés à leur entrée dans l'écran (classe « is-visible »).
-   ========================================================================== */
-
 .js [data-reveal] {
   opacity: 0;
   transform: translate3d(0, 2rem, 0);
@@ -3680,14 +3409,10 @@ html.is-locked .wa-float {
   transition-delay: calc(var(--i, 0) * 90ms);
 }
 
-/* Variante « zoom » */
 .js [data-reveal="zoom"] {
   transform: scale(0.82);
 }
 
-/* Variante « rideau » : l'image se dévoile de bas en haut.
-   (L'état masqué repose sur l'opacité : un élément entièrement rogné par clip-path
-   ne serait pas détecté à son entrée dans l'écran.) */
 .js [data-reveal="clip"] {
   transform: none;
   transition: none;
@@ -3710,11 +3435,6 @@ html.is-locked .wa-float {
 .js [data-reveal="clip"].is-visible img {
   --zoom: 1;
 }
-
-
-/* ==========================================================================
-   19. IMAGES CLÉS DES ANIMATIONS
-   ========================================================================== */
 
 @keyframes hero-fade {
   from { opacity: 0; }
@@ -3792,12 +3512,6 @@ html.is-locked .wa-float {
   to { opacity: 1; transform: none; }
 }
 
-
-/* ==========================================================================
-   20. PRÉFÉRENCES UTILISATEUR ET IMPRESSION
-   ========================================================================== */
-
-/* Animations en pause lorsqu'elles sont hors de l'écran (classe posée par le JS) */
 .is-offscreen,
 .is-offscreen *,
 .is-offscreen *::before,
@@ -3805,7 +3519,6 @@ html.is-locked .wa-float {
   animation-play-state: paused !important;
 }
 
-/* Respect du réglage système « réduire les animations » */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
