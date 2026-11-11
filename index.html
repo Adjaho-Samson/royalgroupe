@@ -18,7 +18,6 @@
     <meta name="color-scheme" content="dark" />
     <meta name="format-detection" content="telephone=no" />
 
-    
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="Royal Group" />
@@ -35,7 +34,6 @@
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Icônes du site -->
     <link
       rel="icon"
       href="assets/logo/favicon-32.png"
@@ -60,7 +58,6 @@
   <body>
     <a class="skip-link" href="#contenu">Aller au contenu principal</a>
 
-    
     <svg
       class="sprite"
       xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +73,6 @@
         </linearGradient>
       </defs>
 
-      <!-- Symbole Royal Group : une couronne dessinée comme un égaliseur sonore -->
       <symbol id="rg-mark" viewBox="0 0 64 64">
         <g fill="url(#rg-or)">
           <path d="M8 48V24l8.4 8.03V48Z" />
@@ -91,7 +87,6 @@
         </g>
       </symbol>
 
-     
       <symbol id="i-calendar" viewBox="0 0 24 24">
         <path d="M8 2v3" />
         <path d="M16 2v3" />
@@ -222,7 +217,6 @@
         <circle cx="12" cy="12" r="2" />
       </symbol>
 
-      <!-- Icônes pleines (étoile décorative et logos des réseaux) -->
       <symbol id="i-star" viewBox="0 0 24 24">
         <path
           d="M12 1c.7 5.9 5.1 10.3 11 11-5.9.7-10.3 5.1-11 11-.7-5.9-5.1-10.3-11-11 5.9-.7 10.3-5.1 11-11z"
@@ -255,14 +249,10 @@
       </symbol>
     </svg>
 
-    <!-- Barre de progression de lecture (décorative) -->
     <div class="scroll-progress" aria-hidden="true">
       <span class="scroll-progress__bar"></span>
     </div>
 
-    <!-- =====================================================================
-       EN-TÊTE ET NAVIGATION
-       ===================================================================== -->
     <header class="site-header" id="site-header">
       <div class="site-header__inner">
         <a
@@ -371,11 +361,9 @@
     </header>
 
     <main id="contenu" tabindex="-1">
-      <!-- ===================================================================
-         SECTION 1 — ACCUEIL (HERO)
-         =================================================================== -->
+
       <section class="hero" id="accueil" aria-labelledby="hero-title">
-        <!-- Arrière-plan : photographie + effets lumineux (purement décoratifs) -->
+
         <div class="hero__media" aria-hidden="true">
           <div class="hero__parallax">
             <div class="hero__depth">
@@ -419,7 +407,6 @@
             ><span>Grandes rencontres</span>
           </p>
 
-          <!-- TEXTE MODIFIABLE : titre principal -->
           <h1 class="hero__title" id="hero-title">
             <span class="hero__line">
               <span class="hero__word"><span>Vivez</span></span>
@@ -431,7 +418,6 @@
             </span>
           </h1>
 
-          <!-- TEXTE MODIFIABLE : présentation courte -->
           <p class="hero__text">
             Royal Group transforme chaque événement en une expérience unique.
             Des rencontres inoubliables, des ambiances exceptionnelles et des
@@ -467,7 +453,6 @@
             </a>
           </div>
 
-          <!-- Aperçu du prochain événement (rempli automatiquement par js/script.js) -->
           <div class="hero__next" id="hero-next"></div>
         </div>
 
@@ -481,7 +466,6 @@
         </a>
       </section>
 
-      <!-- Bandeau défilant (décoratif) -->
       <div class="marquee" aria-hidden="true">
         <div class="marquee__track">
           <div class="marquee__group">
@@ -513,17 +497,13 @@
         </div>
       </div>
 
-      <!-- ===================================================================
-         SECTION 2 — À PROPOS DE ROYAL GROUP
-         Tous les textes ci-dessous sont des propositions : modifiez-les librement.
-         =================================================================== -->
       <section
         class="section about"
         id="a-propos"
         aria-labelledby="about-title"
       >
         <div class="container">
-          <!-- Bloc 1 : présentation générale (image à gauche, texte à droite) -->
+
           <div class="about__row">
             <div class="about__visual">
               <figure class="frame frame--portrait" data-reveal="clip">
@@ -578,7 +558,7 @@
               <h2 class="section-title" id="about-title" data-reveal>
                 Bien plus qu’un événement, <em>une expérience</em>
               </h2>
-              <!-- TEXTE MODIFIABLE : présentation générale -->
+
               <p class="lead" data-reveal>
                 Royal Group est un groupe événementiel qui évolue dans l’univers
                 des concerts, des spectacles, des soirées festives et des
@@ -599,7 +579,6 @@
             </div>
           </div>
 
-          <!-- Bloc 2 : vision et mission (texte à gauche, image à droite) -->
           <div class="about__row about__row--reverse">
             <div class="about__visual">
               <figure class="frame frame--landscape" data-reveal="clip">
@@ -616,7 +595,7 @@
             </div>
 
             <div class="about__content">
-              <!-- TEXTE MODIFIABLE : vision -->
+
               <article class="statement" data-reveal>
                 <span class="statement__icon" aria-hidden="true"
                   ><svg class="icon" focusable="false">
@@ -632,7 +611,7 @@
                   </p>
                 </div>
               </article>
-              <!-- TEXTE MODIFIABLE : mission -->
+
               <article class="statement" data-reveal>
                 <span class="statement__icon" aria-hidden="true"
                   ><svg class="icon" focusable="false">
@@ -651,10 +630,9 @@
             </div>
           </div>
 
-          <!-- Bloc 3 : valeurs -->
           <div class="values">
             <h3 class="values__title" data-reveal>Nos <em>valeurs</em></h3>
-            <!-- TEXTE MODIFIABLE : valeurs -->
+
             <ul class="values__grid" data-stagger>
               <li class="value-card" data-reveal data-spotlight>
                 <span class="value-card__num" aria-hidden="true">01</span>
@@ -721,10 +699,6 @@
         </div>
       </section>
 
-      <!-- ===================================================================
-         SECTION 3 — NOS ÉVÉNEMENTS PASSÉS
-         Les cartes sont générées par js/script.js à partir du tableau EVENTS.
-         =================================================================== -->
       <section
         class="section past"
         id="evenements-passes"
@@ -766,10 +740,6 @@
         </div>
       </section>
 
-      <!-- ===================================================================
-         SECTION 4 — NOS PROCHAINS ÉVÉNEMENTS
-         Les cartes sont générées par js/script.js à partir du tableau EVENTS.
-         =================================================================== -->
       <section
         class="section upcoming"
         id="prochains-evenements"
@@ -812,9 +782,6 @@
         </div>
       </section>
 
-      <!-- ===================================================================
-         SECTION 5 — RÉSERVATION DE TICKETS PAR WHATSAPP
-         =================================================================== -->
       <section
         class="section booking"
         id="reservation"
@@ -867,7 +834,6 @@
             </ol>
           </div>
 
-          <!-- Module de réservation : compose le message WhatsApp (aucune donnée n'est envoyée au site) -->
           <div class="booking__panel" data-reveal>
             <div class="chat">
               <div class="chat__header">
@@ -953,11 +919,6 @@
         </div>
       </section>
 
-      <!-- ===================================================================
-         SECTION 6 — CONTACT
-         Les coordonnées se renseignent dans js/script.js (objet CONTACT).
-         Tant qu'une coordonnée est vide, la mention « Bientôt disponible » reste affichée.
-         =================================================================== -->
       <section
         class="section contact"
         id="contact"
@@ -972,7 +933,7 @@
             <h2 class="section-title" id="contact-title" data-reveal>
               Restons <em>en contact</em>
             </h2>
-            <!-- TEXTE MODIFIABLE : phrase d'invitation -->
+
             <p class="section-lead" data-reveal>
               Une demande d’information, un projet de partenariat ou une
               réservation&nbsp;? Contactez Royal Group&nbsp;: nous vous
@@ -1051,9 +1012,6 @@
       </section>
     </main>
 
-    <!-- =====================================================================
-       PIED DE PAGE
-       ===================================================================== -->
     <footer class="site-footer">
       <div class="container">
         <div class="site-footer__top">
@@ -1086,7 +1044,6 @@
             </ul>
           </nav>
 
-          <!-- Liens vers les réseaux : affichés automatiquement lorsqu'ils sont renseignés dans js/script.js -->
           <ul
             class="site-footer__socials"
             id="footer-socials"
@@ -1113,7 +1070,6 @@
       </div>
     </footer>
 
-    <!-- Bouton WhatsApp flottant (présent sur toutes les sections) -->
     <a
       class="wa-float"
       href="https://wa.me/?text=Bonjour%20Royal%20Group%20!"
@@ -1130,7 +1086,6 @@
       >
     </a>
 
-    <!-- Message d'information discret (rempli par js/script.js) -->
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>
 </html>

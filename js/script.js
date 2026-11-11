@@ -1,124 +1,53 @@
-/* =============================================================================
-   ROYAL GROUP — SCRIPT PRINCIPAL (JavaScript « vanilla », sans dépendance)
-   -----------------------------------------------------------------------------
-   SOMMAIRE
-     1. CONFIGURATION ......... numéro WhatsApp, coordonnées, messages, options
-     2. ÉVÉNEMENTS ............ tableau EVENTS (ajouter / modifier / supprimer)
-     3. Outils ................ texte, dates, WhatsApp
-     4. Affichage ............. prochains événements, événements passés, Hero
-     5. Réservation et contact
-     6. Navigation ............ menu mobile, section active, défilement
-     7. Effets visuels ........ apparitions, parallaxe, profondeur, bandeau
-     8. Galerie agrandie ...... lightbox
-     9. Démarrage
 
-   👉 Pour mettre le site à jour, seules les parties 1 et 2 sont à modifier.
-   ============================================================================= */
 
 "use strict";
 
-
-/* =============================================================================
-   1. CONFIGURATION — À RENSEIGNER PAR ROYAL GROUP
-   ============================================================================= */
-
-/**
- * Numéro WhatsApp officiel de Royal Group.
- * Format international, SANS espace et SANS signe « + ».
- * Exemple de format pour le Bénin : "229XXXXXXXXXX"
- *
- * Tant que cette valeur est vide, les boutons ouvrent WhatsApp avec le message
- * prérempli mais sans destinataire (mode démonstration).
- */
 const WHATSAPP_NUMBER = "2290144603910";
 
-/**
- * Coordonnées affichées dans la section « Contact » et dans le pied de page.
- * Laissez une valeur vide ("") tant que l'information n'est pas disponible :
- * le site affiche alors « Bientôt disponible ».
- */
 const CONTACT = {
-  phone: "+229 01 44 60 39 10",   // Téléphone (Bénin, plan de numérotation à 10 chiffres)
-  whatsappLabel: "+229 01 44 60 39 10",  // Texte affiché pour WhatsApp
+  phone: "+229 01 44 60 39 10",
+  whatsappLabel: "+229 01 44 60 39 10",
   email: "duhameldemesse@gmail.com",
   facebook: "https://www.facebook.com/profile.php?id=61596542091779",
-  instagram: "",      // Adresse complète du compte Instagram. Ex. : "https://www.instagram.com/votre-compte"
-  otherSocials: [     // Autres réseaux : ajoutez, modifiez ou supprimez des lignes.
+  instagram: "",
+  otherSocials: [
     { name: "TikTok", url: "" },
     { name: "YouTube", url: "" }
   ]
 };
 
-/**
- * Messages préremplis envoyés sur WhatsApp.
- * Dans « event », le repère {event} est remplacé par le nom de l'événement choisi.
- */
 const WHATSAPP_MESSAGES = {
-  // Réservation d'un événement précis
+
   event:
     "Bonjour Royal Group !\n\n" +
     "Je souhaite réserver un ticket pour votre événement : {event}.\n\n" +
     "Pouvez-vous me communiquer les modalités de réservation et de paiement ?\n\n" +
     "Merci.",
-  // Réservation sans événement précis (plusieurs événements à venir, ou aucun)
+
   booking:
     "Bonjour Royal Group !\n\n" +
     "Je souhaite réserver un ticket pour l’un de vos prochains événements.\n\n" +
     "Pouvez-vous me communiquer les modalités de réservation et de paiement ?\n\n" +
     "Merci.",
-  // Bouton « Être informé(e) sur WhatsApp »
+
   news:
     "Bonjour Royal Group !\n\n" +
     "Je souhaite être informé(e) de vos prochains événements.\n\n" +
     "Merci.",
-  // Bouton « Écrire sur WhatsApp » de la section Contact
+
   contact:
     "Bonjour Royal Group !\n\n" +
     "Je vous contacte pour une demande d’information.\n\n" +
     "Merci."
 };
 
-/** Options diverses. */
 const SETTINGS = {
-  // (Facultatif) Vidéo d'arrière-plan du Hero, placée dans assets/videos/.
-  // Ex. : "assets/videos/hero.mp4" — laissez vide pour conserver la photographie.
+
   heroVideo: ""
 };
 
-
-/* =============================================================================
-   2. ÉVÉNEMENTS
-   -----------------------------------------------------------------------------
-   Un seul tableau pour TOUS les événements. Le site les classe automatiquement :
-     • date à venir (ou date vide)  →  section « Nos prochains événements »
-     • date passée                  →  section « Nos événements passés »
-   Un événement bascule tout seul dans les événements passés le lendemain de sa
-   date : il n'est jamais affiché comme « à venir » une fois terminé.
-
-   Champs disponibles :
-     id           Identifiant unique, sans espace ni accent (ex. "concert-nouvel-an").
-     title        Nom de l'événement.
-     category     Type d'événement (Concert, Festival, Soirée VIP, Gala…).
-     date         Date au format "AAAA-MM-JJ". Laisser "" si elle n'est pas encore fixée.
-     endDate      (Facultatif) Dernier jour, si l'événement dure plusieurs jours.
-     time         (Facultatif) Heure de début au format "HH:MM".
-     location     Lieu de l'événement.
-     description  Courte description.
-     image        Photo ou affiche en grand format (dossier assets/events/).
-     thumb        (Facultatif) Version réduite de l'image, chargée dans les cartes.
-     imageAlt     (Facultatif) Description de l'image pour l'accessibilité.
-     gallery      (Facultatif) Photos supplémentaires, visibles dans la galerie agrandie.
-     tickets      (Facultatif) Catégories de tickets : [{ name: "...", price: "..." }].
-     ticketNote   (Facultatif) Précision affichée sous les tickets.
-     demo         true = contenu de démonstration (affiche l'étiquette « Démo »).
-                  ➜ Supprimez cette ligne (ou mettez false) pour un événement réel.
-
-   ⚠️ Les événements ci-dessous sont des EXEMPLES DE DÉMONSTRATION (noms, dates,
-      lieux et tarifs fictifs). Remplacez-les par les événements officiels.
-   ============================================================================= */
-
 const EVENTS = [
-  /* ---------- Exemples d'événements à venir ---------- */
+
   {
     id: "royal-golden-festival",
     title: "Royal Golden Festival",
@@ -156,7 +85,6 @@ const EVENTS = [
     demo: true
   },
 
-  /* ---------- Exemples d'événements passés ---------- */
   {
     id: "royal-night-live",
     title: "Royal Night Live",
@@ -203,16 +131,9 @@ const EVENTS = [
   }
 ];
 
-
-/* =============================================================================
-   3. OUTILS
-   ============================================================================= */
-
-/** Préférences de l'appareil : animations réduites, souris précise. */
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-/** État de la page : événements classés, jour du dernier classement, galeries photo. */
 const state = {
   upcoming: [],
   past: [],
@@ -221,7 +142,6 @@ const state = {
   galleries: { past: [], upcoming: [] }
 };
 
-/** Exécute une liste d'étapes : une erreur dans l'une n'empêche pas les suivantes de fonctionner. */
 function runSteps(steps) {
   steps.forEach((step) => {
     try {
@@ -232,9 +152,6 @@ function runSteps(steps) {
   });
 }
 
-/* --- Texte ------------------------------------------------------------------ */
-
-/** Protège un texte avant de l'insérer dans du HTML. */
 function escapeHtml(value) {
   const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
   return String(value === undefined || value === null ? "" : value).replace(/[&<>"']/g, (char) => entities[char]);
@@ -244,25 +161,20 @@ function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-/** Code HTML d'une icône de la bibliothèque définie en haut de index.html. */
 function icon(name, extraClass) {
   const classes = "icon" + (extraClass ? " " + extraClass : "");
   return `<svg class="${classes}" aria-hidden="true" focusable="false"><use href="#i-${name}"></use></svg>`;
 }
 
-/** Symbole Royal Group (sert aussi de visuel quand un événement n'a pas d'image). */
 function brandMark(extraClass) {
   return `<svg class="${extraClass || ""}" aria-hidden="true" focusable="false"><use href="#rg-mark"></use></svg>`;
 }
-
-/* --- Dates ------------------------------------------------------------------ */
 
 const DATE_LONG = new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 const DATE_MEDIUM = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
 const DATE_DAY_MONTH = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long" });
 const MONTH_SHORT = new Intl.DateTimeFormat("fr-FR", { month: "short" });
 
-/** "2027-02-27" (+ "18:00") → objet Date en heure locale. Renvoie null si la date est vide ou invalide. */
 function parseDate(dateText, timeText) {
   const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(dateText || "").trim());
   if (!dateMatch) return null;
@@ -280,12 +192,10 @@ function parseDate(dateText, timeText) {
   return isRealDate ? date : null;
 }
 
-/** Début de l'événement (date + heure), ou null si la date n'est pas fixée. */
 function getEventStart(event) {
   return parseDate(event.date, event.time);
 }
 
-/** Fin de l'événement : 23 h 59 du jour de l'événement (ou de son dernier jour s'il en dure plusieurs). */
 function getEventEnd(event) {
   const lastDay = parseDate(event.endDate) || parseDate(event.date);
   if (!lastDay) return null;
@@ -293,18 +203,15 @@ function getEventEnd(event) {
   return lastDay;
 }
 
-/** Un événement est « à venir » tant que sa journée n'est pas terminée (ou si sa date n'est pas fixée). */
 function isUpcoming(event, now) {
   const end = getEventEnd(event);
   return !end || end.getTime() >= now.getTime();
 }
 
-/** En français, le premier jour du mois s'écrit « 1er ». */
 function frenchFirstDay(text) {
   return text.replace(/(^|\s)1 (?=\D)/, "$11er ");
 }
 
-/** Date affichée d'un événement. style : "long" (avec le jour de la semaine) ou "medium". */
 function formatEventDate(event, style) {
   const start = parseDate(event.date);
   if (!start) return "Date à annoncer";
@@ -320,19 +227,16 @@ function formatEventDate(event, style) {
   return capitalize(frenchFirstDay(formatter.format(start)));
 }
 
-/** "18:00" → "18h00" */
 function formatTime(timeText) {
   const match = /^(\d{1,2}):(\d{2})$/.exec(String(timeText || "").trim());
   return match ? `${match[1]}h${match[2]}` : "";
 }
 
-/** Nombre de jours calendaires entre aujourd'hui et une date. */
 function daysUntil(date, now) {
   const startOfDay = (value) => new Date(value.getFullYear(), value.getMonth(), value.getDate()).getTime();
   return Math.round((startOfDay(date) - startOfDay(now)) / 86400000);
 }
 
-/** "Aujourd’hui", "Demain" ou "J-12". */
 function relativeDayLabel(date, now) {
   const days = daysUntil(date, now);
   if (days <= 0) return "Aujourd’hui";
@@ -340,7 +244,6 @@ function relativeDayLabel(date, now) {
   return `J-${days}`;
 }
 
-/** Prépare un événement : identifiant et titre garantis, format de date vérifié. */
 function normalizeEvent(event, index) {
   const normalized = Object.assign({}, event);
   normalized.id = String(event.id || `evenement-${index + 1}`);
@@ -352,9 +255,6 @@ function normalizeEvent(event, index) {
   return normalized;
 }
 
-/* --- WhatsApp ----------------------------------------------------------------- */
-
-/** Numéro WhatsApp nettoyé (chiffres uniquement). */
 function getWhatsAppNumber() {
   return String(WHATSAPP_NUMBER || "").replace(/\D/g, "");
 }
@@ -363,19 +263,14 @@ function isWhatsAppConfigured() {
   return getWhatsAppNumber().length >= 8;
 }
 
-/** Construit le lien https://wa.me/NUMERO?text=MESSAGE_ENCODE */
 function buildWhatsAppUrl(message) {
   return `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(message)}`;
 }
 
-/** Message prérempli pour la réservation d'un événement précis. */
 function getEventMessage(event) {
   return WHATSAPP_MESSAGES.event.replace("{event}", () => event.title);
 }
 
-/* --- Interface ------------------------------------------------------------------ */
-
-/** Affiche un court message d'information en bas de l'écran. */
 let toastTimer = 0;
 
 function showToast(html, duration) {
@@ -388,7 +283,6 @@ function showToast(html, duration) {
   toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), duration || 7000);
 }
 
-/** Bloque / débloque le défilement de la page (menu mobile, galerie agrandie). */
 const scrollLocks = new Set();
 
 function lockScroll(reason, isLocked) {
@@ -400,7 +294,6 @@ function lockScroll(reason, isLocked) {
   document.documentElement.classList.toggle("is-locked", scrollLocks.size > 0);
 }
 
-/** Maintient la navigation au clavier (touche Tab) à l'intérieur d'un groupe d'éléments. */
 function trapFocus(event, elements) {
   if (event.key !== "Tab") return;
 
@@ -420,12 +313,6 @@ function trapFocus(event, elements) {
   }
 }
 
-
-/* =============================================================================
-   4. AFFICHAGE DES ÉVÉNEMENTS
-   ============================================================================= */
-
-/** Image d'un événement, ou visuel de remplacement s'il n'en a pas. */
 function eventImage(event, source, cssClass) {
   if (!source) {
     return `<div class="media-fallback">${brandMark()}</div>`;
@@ -434,27 +321,21 @@ function eventImage(event, source, cssClass) {
   return `<img class="${cssClass}" src="${escapeHtml(source)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async">`;
 }
 
-/** Légende « date · lieu ». */
 function eventCaption(event) {
   return [formatEventDate(event, "medium"), event.location].filter(Boolean).join(" · ");
 }
 
-/* --- Prochains événements ----------------------------------------------------- */
-
-/** Carte « billet » d'un événement à venir. Le premier de la liste est mis en avant. */
 function ticketTemplate(event, isFeatured, photoIndex, now) {
   const start = getEventStart(event);
   const title = escapeHtml(event.title);
   const time = formatTime(event.time);
 
-  // Étiquettes
   const tags = [];
   if (isFeatured) tags.push('<span class="chip chip--gold">Prochain rendez-vous</span>');
   if (event.category) tags.push(`<span class="chip">${escapeHtml(event.category)}</span>`);
   if (!isFeatured && start) tags.push(`<span class="chip">${relativeDayLabel(start, now)}</span>`);
   if (event.demo) tags.push('<span class="chip chip--demo">Démo</span>');
 
-  // Pastille de date posée sur la photo
   const dateBadge = start
     ? `<span class="ticket__day">${start.getDate()}</span>
        <span class="ticket__month">${escapeHtml(MONTH_SHORT.format(start))}</span>
@@ -462,7 +343,6 @@ function ticketTemplate(event, isFeatured, photoIndex, now) {
     : `<span class="ticket__day">?</span>
        <span class="ticket__month">À venir</span>`;
 
-  // Informations pratiques : date, heure, lieu
   const meta = [];
   meta.push(`<li>${icon("calendar")}<span><span class="sr-only">Date : </span>${
     start ? `<time datetime="${escapeHtml(event.date)}">${formatEventDate(event, "long")}</time>` : "Date à annoncer"
@@ -470,14 +350,12 @@ function ticketTemplate(event, isFeatured, photoIndex, now) {
   if (time) meta.push(`<li>${icon("clock")}<span><span class="sr-only">Heure : </span>${time}</span></li>`);
   if (event.location) meta.push(`<li>${icon("pin")}<span><span class="sr-only">Lieu : </span>${escapeHtml(event.location)}</span></li>`);
 
-  // Informations sur les tickets
   const tickets = Array.isArray(event.tickets) ? event.tickets.filter((ticket) => ticket && ticket.name) : [];
   const ticketList = tickets.length
     ? `<ul>${tickets.map((ticket) => `<li><span>${escapeHtml(ticket.name)}</span><span>${escapeHtml(ticket.price || "Tarif à venir")}</span></li>`).join("")}</ul>`
     : '<p class="ticket__prices-note">Informations sur les tickets communiquées prochainement.</p>';
   const ticketNote = event.ticketNote ? `<p class="ticket__prices-note">${escapeHtml(event.ticketNote)}</p>` : "";
 
-  // Compte à rebours (uniquement sur l'événement mis en avant)
   const countdown = isFeatured && start
     ? `<div class="countdown" data-countdown="${start.getTime()}" role="timer" aria-label="Temps restant avant l’événement">
          <div class="countdown__cell"><span class="countdown__value" data-unit="days">--</span><span class="countdown__unit">Jours</span></div>
@@ -487,7 +365,6 @@ function ticketTemplate(event, isFeatured, photoIndex, now) {
        </div>`
     : "";
 
-  // L'événement mis en avant affiche l'image en grand format, les autres la vignette
   const source = isFeatured ? event.image || event.thumb : event.thumb || event.image;
   const zoomButton = photoIndex >= 0
     ? `<button class="ticket__zoom" type="button" data-lightbox="upcoming" data-index="${photoIndex}" aria-label="Agrandir l’affiche : ${title}"></button>
@@ -524,7 +401,6 @@ function ticketTemplate(event, isFeatured, photoIndex, now) {
     </article>`;
 }
 
-/** Tuile de fin de liste : invite à suivre les prochaines annonces. */
 function moreEventsTemplate(hasNoEvent) {
   const title = hasNoEvent ? "De nouveaux événements arrivent bientôt" : "D’autres dates arrivent";
   const text = hasNoEvent
@@ -547,7 +423,6 @@ function renderUpcomingEvents(upcoming, now) {
   const list = document.getElementById("upcoming-list");
   if (!list) return;
 
-  // Les affiches sont consultables dans la galerie agrandie
   const photos = [];
   const cards = upcoming.map((event, index) => {
     let photoIndex = -1;
@@ -567,8 +442,6 @@ function renderUpcomingEvents(upcoming, now) {
   if (demoNote) demoNote.hidden = !upcoming.some((event) => event.demo);
 }
 
-/* --- Événements passés ---------------------------------------------------------- */
-
 function pastCardTemplate(event, index, isWide, photoIndex, photoCount) {
   const title = escapeHtml(event.title);
 
@@ -581,7 +454,6 @@ function pastCardTemplate(event, index, isWide, photoIndex, photoCount) {
   meta.push(`<span>${icon("calendar")}<time datetime="${escapeHtml(event.date)}">${formatEventDate(event, "medium")}</time></span>`);
   if (event.location) meta.push(`<span>${icon("pin")}${escapeHtml(event.location)}</span>`);
 
-  // Les cartes larges affichent l'image en grand format, les autres la vignette
   const source = isWide ? event.image || event.thumb : event.thumb || event.image;
   const hasPhoto = photoCount > 0;
 
@@ -614,12 +486,9 @@ function renderPastEvents(past) {
     return;
   }
 
-  // La grille reste toujours complète : selon le nombre d'événements, les premières
-  // cartes sont plus larges (voir css/style.css, section 11).
   const remainder = past.length % 3;
   const wideCount = remainder === 2 ? 2 : remainder === 1 ? 4 : past.length % 2;
 
-  // Toutes les photos (image principale + galerie de chaque événement) défilent dans la même galerie agrandie
   const photos = [];
   const cards = past.map((event, index) => {
     const eventPhotos = [event.image].concat(Array.isArray(event.gallery) ? event.gallery : []).filter(Boolean);
@@ -639,8 +508,6 @@ function renderPastEvents(past) {
   grid.innerHTML = cards.join("");
 }
 
-/* --- Aperçu du prochain événement dans le Hero ------------------------------------ */
-
 function renderHeroNext(event, now) {
   const slot = document.getElementById("hero-next");
   if (!slot) return;
@@ -654,7 +521,6 @@ function renderHeroNext(event, now) {
   const source = event.thumb || event.image;
   const thumb = source ? `<img src="${escapeHtml(source)}" alt="" width="58" height="58" decoding="async">` : brandMark();
 
-  // Décompte : en grand à droite de la carte, ou abrégé (« J-12 ») sur les petits écrans
   let count = "";
   let shortCount = "";
   if (start) {
@@ -679,8 +545,6 @@ function renderHeroNext(event, now) {
       ${count ? `<span class="hero-next__count">${count}</span>` : ""}
     </a>`;
 }
-
-/* --- Compte à rebours ------------------------------------------------------------- */
 
 let countdownTimer = 0;
 
@@ -719,8 +583,6 @@ function startCountdowns() {
   }
 }
 
-/* --- Image introuvable : on affiche le visuel de remplacement ----------------------- */
-
 function setupImageFallback() {
   document.addEventListener("error", (event) => {
     const image = event.target;
@@ -734,16 +596,6 @@ function setupImageFallback() {
   }, true);
 }
 
-
-/* =============================================================================
-   5. RÉSERVATION ET CONTACT
-   ============================================================================= */
-
-/**
- * Liens WhatsApp généraux (attribut data-whatsapp="booking | news | contact").
- * S'il n'y a qu'un seul événement à venir, les boutons « Réserver mon ticket »
- * le nomment directement dans le message.
- */
 function updateWhatsAppLinks(upcoming) {
   const bookingMessage = upcoming.length === 1 ? getEventMessage(upcoming[0]) : WHATSAPP_MESSAGES.booking;
 
@@ -757,7 +609,6 @@ function updateWhatsAppLinks(upcoming) {
   });
 }
 
-/** Tant que le numéro officiel n'est pas configuré, on le signale au clic (mode démonstration). */
 function setupDemoNotice() {
   if (isWhatsAppConfigured()) return;
 
@@ -771,7 +622,6 @@ function setupDemoNotice() {
   });
 }
 
-/** Module de réservation : choix de l'événement → aperçu du message → lien WhatsApp. */
 let isBookingReady = false;
 
 function updateBooking(upcoming) {
@@ -789,12 +639,11 @@ function updateBooking(upcoming) {
 
     if (isUserChange && !prefersReducedMotion) {
       preview.classList.remove("is-updating");
-      void preview.offsetWidth; // relance l'animation de la bulle
+      void preview.offsetWidth;
       preview.classList.add("is-updating");
     }
   }
 
-  // Liste des événements : la première option (« L'un de vos prochains événements ») est conservée
   const previousChoice = select.value;
   select.length = 1;
   upcoming.forEach((event) => {
@@ -802,7 +651,6 @@ function updateBooking(upcoming) {
     select.add(new Option(label, event.id));
   });
 
-  // Premier affichage : le prochain événement est présélectionné. Ensuite, le choix du visiteur est respecté.
   const isChoiceStillValid = previousChoice === "" || upcoming.some((event) => event.id === previousChoice);
   if (isBookingReady && isChoiceStillValid) {
     select.value = previousChoice;
@@ -817,21 +665,18 @@ function updateBooking(upcoming) {
   updateMessage(false);
 }
 
-/** Ajoute « https:// » si l'adresse a été saisie sans protocole. */
 function normalizeUrl(url) {
   const value = String(url || "").trim();
   if (!value) return "";
   return /^https?:\/\//i.test(value) ? value : `https://${value}`;
 }
 
-/** "https://www.facebook.com/page/" → "facebook.com/page" */
 function displayUrl(url) {
   return url.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "");
 }
 
-/** Section Contact : active chaque ligne dont la coordonnée est renseignée dans CONTACT. */
 function setupContact() {
-  const socials = []; // réseaux renseignés, repris dans le pied de page
+  const socials = [];
 
   function activate(key, text, href, isExternal) {
     const item = document.querySelector(`[data-contact="${key}"]`);
@@ -865,7 +710,6 @@ function setupContact() {
     socials.push({ name: capitalize(network), url: url, iconName: network });
   });
 
-  // Autres réseaux : plusieurs liens possibles sur la même ligne
   const others = (Array.isArray(CONTACT.otherSocials) ? CONTACT.otherSocials : [])
     .map((social) => ({ name: String((social && social.name) || "").trim(), url: normalizeUrl(social && social.url) }))
     .filter((social) => social.name && social.url);
@@ -885,7 +729,6 @@ function setupContact() {
     });
   }
 
-  // Pied de page : icônes des réseaux renseignés
   const footerSocials = document.getElementById("footer-socials");
   if (footerSocials && socials.length > 0) {
     footerSocials.innerHTML = socials
@@ -898,18 +741,11 @@ function setupContact() {
   }
 }
 
-/** Année du copyright mise à jour automatiquement. */
 function setupFooterYear() {
   const year = document.getElementById("current-year");
   if (year) year.textContent = String(new Date().getFullYear());
 }
 
-
-/* =============================================================================
-   6. NAVIGATION
-   ============================================================================= */
-
-/** Menu mobile plein écran. */
 function setupMobileMenu() {
   const header = document.getElementById("site-header");
   const toggle = header ? header.querySelector(".nav-toggle") : null;
@@ -930,7 +766,6 @@ function setupMobileMenu() {
 
   toggle.addEventListener("click", () => setMenu(!isOpen()));
 
-  // Un clic sur un lien du menu le referme
   nav.addEventListener("click", (event) => {
     if (isOpen() && event.target instanceof Element && event.target.closest("a")) setMenu(false);
   });
@@ -946,13 +781,11 @@ function setupMobileMenu() {
     }
   });
 
-  // Passage à la navigation « ordinateur » (rotation de tablette, fenêtre agrandie) : on referme le menu
   window.addEventListener("resize", () => {
     if (isOpen() && desktopQuery.matches) setMenu(false);
   });
 }
 
-/** Met en évidence, dans le menu, la section en cours de lecture. */
 function setupScrollSpy() {
   if (!("IntersectionObserver" in window)) return;
 
@@ -976,12 +809,11 @@ function setupScrollSpy() {
       activeLink.classList.add("is-active");
       activeLink.setAttribute("aria-current", "true");
     });
-  }, { rootMargin: "-45% 0px -55% 0px" }); // ligne de repère placée à 45 % de la hauteur de l'écran
+  }, { rootMargin: "-45% 0px -55% 0px" });
 
   linkBySection.forEach((link, section) => observer.observe(section));
 }
 
-/** Effets liés au défilement : fond de l'en-tête, barre de progression, parallaxe. */
 function setupScrollEffects() {
   const header = document.getElementById("site-header");
   const progressBar = document.querySelector(".scroll-progress__bar");
@@ -994,17 +826,14 @@ function setupScrollEffects() {
   function update() {
     isTicking = false;
 
-    // 1) Lectures (regroupées pour ne pas forcer plusieurs calculs de mise en page)
     const scrollY = window.scrollY;
     const viewportHeight = window.innerHeight;
     const maxScroll = document.documentElement.scrollHeight - viewportHeight;
     const frames = parallaxImages.map((image) => image.parentElement.getBoundingClientRect());
 
-    // 2) Écritures
     if (header) header.classList.toggle("is-scrolled", scrollY > 24);
     if (progressBar) progressBar.style.setProperty("--page-progress", maxScroll > 0 ? Math.min(scrollY / maxScroll, 1).toFixed(4) : "0");
 
-    // Hero : la photo défile plus lentement que la page, puis le texte s'estompe en sortie
     if (hero && !prefersReducedMotion && scrollY <= heroHeight) {
       const fadeStart = Math.max(0, heroHeight - viewportHeight);
       const fade = Math.min(Math.max((scrollY - fadeStart) / (viewportHeight * 0.75), 0), 1);
@@ -1012,7 +841,6 @@ function setupScrollEffects() {
       hero.style.setProperty("--progress", fade.toFixed(3));
     }
 
-    // Photos de la section « À propos » : léger glissement dans leur cadre
     parallaxImages.forEach((image, index) => {
       const frame = frames[index];
       if (frame.bottom < -80 || frame.top > viewportHeight + 80) return;
@@ -1038,26 +866,16 @@ function setupScrollEffects() {
   update();
 }
 
-/** « Découvrir nos événements » mène aux prochains événements — ou aux événements passés s'il n'y en a aucun à venir. */
 function updateDiscoverLinks(hasUpcomingEvents) {
   const target = hasUpcomingEvents ? "#prochains-evenements" : "#evenements-passes";
   document.querySelectorAll("[data-discover]").forEach((link) => link.setAttribute("href", target));
 }
 
-
-/* =============================================================================
-   7. EFFETS VISUELS
-   ============================================================================= */
-
-/**
- * Apparition progressive des éléments [data-reveal] à leur entrée dans l'écran.
- * La classe « js » n'est posée sur <html> qu'ici : sans JavaScript, tout reste visible.
- */
 let revealObserver = null;
 
 function revealElement(element) {
   element.classList.add("is-visible");
-  // Une fois l'animation terminée, l'attribut est retiré pour rendre la main aux styles de survol.
+
   const index = Number(element.style.getPropertyValue("--i")) || 0;
   window.setTimeout(() => element.removeAttribute("data-reveal"), 2200 + index * 90);
 }
@@ -1066,7 +884,6 @@ function setupReveal() {
   const root = document.documentElement;
   const elements = Array.from(document.querySelectorAll("[data-reveal]"));
 
-  // Apparition en cascade des éléments d'une même liste
   document.querySelectorAll("[data-stagger]").forEach((list) => {
     Array.from(list.children).forEach((child, index) => child.style.setProperty("--i", String(index)));
   });
@@ -1085,7 +902,6 @@ function setupReveal() {
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
 
-  // Les éléments déjà visibles à l'ouverture de la page restent affichés, sans animation.
   const viewportHeight = window.innerHeight;
   elements.forEach((element) => {
     if (element.getBoundingClientRect().top < viewportHeight) {
@@ -1098,7 +914,6 @@ function setupReveal() {
   root.classList.replace("no-js", "js");
 }
 
-/** Prend en charge les éléments [data-reveal] ajoutés après le démarrage (listes d'événements actualisées). */
 function watchNewReveals() {
   document.querySelectorAll("#upcoming-list [data-reveal], #past-grid [data-reveal]").forEach((element) => {
     if (revealObserver) {
@@ -1109,11 +924,9 @@ function watchNewReveals() {
   });
 }
 
-/** Entrée en scène du Hero : elle attend la police des titres et la photographie. */
 function setupHeroIntro() {
   const root = document.documentElement;
 
-  // Les animations d'entrée patientent jusqu'au chargement de la police des titres (1,5 s au maximum)
   if (!prefersReducedMotion && document.fonts && typeof document.fonts.load === "function") {
     const start = () => root.classList.remove("is-waiting");
     window.setTimeout(start, 1500);
@@ -1121,7 +934,6 @@ function setupHeroIntro() {
     document.fonts.load('1em "Anton"').then(start, start);
   }
 
-  // La photographie apparaît en fondu, par-dessus sa miniature floutée, une fois chargée
   const image = document.querySelector(".hero__img");
   if (image && !image.complete) {
     const show = () => image.classList.remove("is-loading");
@@ -1131,12 +943,10 @@ function setupHeroIntro() {
   }
 }
 
-/** Hero : poussières dorées, profondeur à la souris et vidéo facultative. */
 function setupHeroEffects() {
   const hero = document.querySelector(".hero");
   if (!hero || prefersReducedMotion) return;
 
-  // Poussières dorées en suspension (moins nombreuses sur mobile)
   const dust = hero.querySelector(".hero__dust");
   if (dust) {
     const random = (min, max) => min + Math.random() * (max - min);
@@ -1157,7 +967,6 @@ function setupHeroEffects() {
     dust.appendChild(fragment);
   }
 
-  // Effet de profondeur : la photo et les faisceaux suivent légèrement la souris
   if (hasFinePointer) {
     let pointerX = 0;
     let pointerY = 0;
@@ -1182,7 +991,6 @@ function setupHeroEffects() {
     });
   }
 
-  // Vidéo d'arrière-plan facultative (voir SETTINGS.heroVideo) : elle recouvre la photo une fois prête
   const depth = hero.querySelector(".hero__depth");
   const saveData = navigator.connection && navigator.connection.saveData;
   if (SETTINGS.heroVideo && depth && !saveData) {
@@ -1202,7 +1010,6 @@ function setupHeroEffects() {
   }
 }
 
-/** Effets à la souris : halo sur les cartes [data-spotlight], inclinaison des affiches [data-tilt]. */
 function setupPointerEffects() {
   if (!hasFinePointer || prefersReducedMotion) return;
 
@@ -1227,7 +1034,6 @@ function setupPointerEffects() {
     }
   }, { passive: true });
 
-  // La souris quitte une affiche : elle revient à plat
   document.addEventListener("pointerout", (event) => {
     const media = event.target instanceof Element ? event.target.closest("[data-tilt]") : null;
     if (media && !(event.relatedTarget instanceof Node && media.contains(event.relatedTarget))) {
@@ -1237,14 +1043,13 @@ function setupPointerEffects() {
   }, { passive: true });
 }
 
-/** Bandeau défilant : duplique le contenu pour remplir l'écran et obtenir une boucle sans coupure. */
 function setupMarquee() {
   const track = document.querySelector(".marquee__track");
   const group = track ? track.querySelector(".marquee__group") : null;
   if (!track || !group) return;
 
   function build() {
-    // On repart d'un seul groupe, puis on ajoute assez de copies pour couvrir la largeur de l'écran
+
     Array.from(track.children).slice(1).forEach((copy) => copy.remove());
 
     const groupWidth = group.getBoundingClientRect().width;
@@ -1255,13 +1060,11 @@ function setupMarquee() {
       track.appendChild(group.cloneNode(true));
     }
 
-    // Le défilement avance d'exactement une largeur de groupe, à vitesse constante
     track.style.setProperty("--marquee-shift", `-${groupWidth.toFixed(1)}px`);
     track.style.setProperty("--marquee-duration", `${Math.max(18, Math.round(groupWidth / 60))}s`);
     track.classList.toggle("is-ready", !prefersReducedMotion);
   }
 
-  // La largeur dépend de la police : on attend qu'elle soit chargée
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(build, build);
   } else {
@@ -1271,14 +1074,13 @@ function setupMarquee() {
   let resizeTimer = 0;
   let lastWidth = window.innerWidth;
   window.addEventListener("resize", () => {
-    if (window.innerWidth === lastWidth) return; // on ignore les changements de hauteur (barre d'adresse mobile)
+    if (window.innerWidth === lastWidth) return;
     lastWidth = window.innerWidth;
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(build, 200);
   });
 }
 
-/** Met en pause les animations continues lorsqu'elles sortent de l'écran (économie de batterie). */
 function setupOffscreenPause() {
   if (!("IntersectionObserver" in window)) return;
 
@@ -1289,13 +1091,8 @@ function setupOffscreenPause() {
   document.querySelectorAll(".hero, .marquee, .seal").forEach((element) => observer.observe(element));
 }
 
-
-/* =============================================================================
-   8. GALERIE AGRANDIE (LIGHTBOX)
-   ============================================================================= */
-
 function setupLightbox() {
-  // Création de la fenêtre de galerie (une seule fois)
+
   const root = document.createElement("div");
   root.className = "lightbox";
   root.setAttribute("role", "dialog");
@@ -1333,7 +1130,6 @@ function setupLightbox() {
 
   const isOpen = () => root.classList.contains("is-open");
 
-  /** Affiche la photo demandée. direction : -1 (précédente), 1 (suivante) ou 0 (ouverture). */
   function show(index, direction) {
     currentIndex = (index + items.length) % items.length;
     const item = items[currentIndex];
@@ -1342,7 +1138,6 @@ function setupLightbox() {
     image.style.setProperty("--shift", `${direction * 28}px`);
     image.classList.add("is-changing");
 
-    // On attend à la fois la fin du fondu de sortie et le chargement de la nouvelle photo
     const fadeOut = new Promise((resolve) => window.setTimeout(resolve, direction === 0 || prefersReducedMotion ? 0 : 220));
     const loaded = new Promise((resolve) => {
       const loader = new Image();
@@ -1352,7 +1147,7 @@ function setupLightbox() {
     });
 
     Promise.all([fadeOut, loaded]).then(() => {
-      if (thisRequest !== requestId) return; // une autre photo a été demandée entre-temps
+      if (thisRequest !== requestId) return;
 
       image.src = item.src;
       image.alt = item.alt;
@@ -1360,14 +1155,12 @@ function setupLightbox() {
       meta.textContent = item.meta;
       counter.textContent = `${currentIndex + 1} / ${items.length}`;
 
-      // La nouvelle photo arrive du côté opposé
       image.style.setProperty("--shift", `${direction * -28}px`);
       window.requestAnimationFrame(() => {
         window.requestAnimationFrame(() => image.classList.remove("is-changing"));
       });
     });
 
-    // Préchargement des photos voisines
     if (items.length > 1) {
       [currentIndex + 1, currentIndex - 1].forEach((neighbour) => {
         new Image().src = items[(neighbour + items.length) % items.length].src;
@@ -1397,7 +1190,6 @@ function setupLightbox() {
     if (trigger && document.contains(trigger)) trigger.focus({ preventScroll: true });
   }
 
-  // Ouverture : clic sur un élément [data-lightbox="past | upcoming"]
   document.addEventListener("click", (event) => {
     const opener = event.target instanceof Element ? event.target.closest("[data-lightbox]") : null;
     if (!opener) return;
@@ -1408,12 +1200,10 @@ function setupLightbox() {
   prevButton.addEventListener("click", () => show(currentIndex - 1, -1));
   nextButton.addEventListener("click", () => show(currentIndex + 1, 1));
 
-  // Un clic en dehors de la photo referme la galerie
   stage.addEventListener("click", (event) => {
     if (event.target === stage) close();
   });
 
-  // Clavier : Échap, flèches gauche / droite, touche Tab maintenue dans la galerie
   document.addEventListener("keydown", (event) => {
     if (!isOpen()) return;
 
@@ -1423,7 +1213,6 @@ function setupLightbox() {
     else trapFocus(event, [closeButton, prevButton, nextButton]);
   });
 
-  // Écrans tactiles : balayage horizontal pour changer de photo
   let touchStartX = 0;
   let touchStartY = 0;
 
@@ -1440,21 +1229,11 @@ function setupLightbox() {
   }, { passive: true });
 }
 
-
-/* =============================================================================
-   9. DÉMARRAGE
-   ============================================================================= */
-
-/**
- * Classe les événements selon la date du jour, puis met à jour tout ce qui en dépend :
- * listes, aperçu du Hero, liens WhatsApp et module de réservation.
- */
 function refreshEvents() {
   const now = new Date();
   const events = EVENTS.map(normalizeEvent);
-  const farFuture = Number.MAX_SAFE_INTEGER; // les événements sans date sont placés en fin de liste
+  const farFuture = Number.MAX_SAFE_INTEGER;
 
-  // À venir : du plus proche au plus lointain
   state.upcoming = events
     .filter((event) => isUpcoming(event, now))
     .sort((a, b) => {
@@ -1463,7 +1242,6 @@ function refreshEvents() {
       return (startA ? startA.getTime() : farFuture) - (startB ? startB.getTime() : farFuture);
     });
 
-  // Passés : du plus récent au plus ancien
   state.past = events
     .filter((event) => !isUpcoming(event, now))
     .sort((a, b) => getEventEnd(b).getTime() - getEventEnd(a).getTime());
@@ -1482,10 +1260,6 @@ function refreshEvents() {
   ]);
 }
 
-/**
- * Si la page reste ouverte jusqu'au lendemain, les listes sont recalculées :
- * un événement terminé quitte aussitôt les « prochains événements ».
- */
 function watchDayChange() {
   const check = () => {
     if (!document.hidden && new Date().toDateString() !== state.day) refreshEvents();
