@@ -3189,6 +3189,7 @@ html.is-locked body {
 
 .partnership__contacts dd {
   margin-top: 0.15rem;
+  margin-inline-start: 0; /* annule le retrait de 40px appliqué par le navigateur */
   color: var(--c-muted);
   overflow-wrap: anywhere;
 }
@@ -3204,9 +3205,235 @@ html.is-locked body {
   max-width: 100%;
 }
 
-@media (min-width: 900px) {
-  .partnership__details {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+/* Bandeau « atouts » repris des pastilles du flyer officiel */
+.partnership__offer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 0 1.4rem;
+  list-style: none;
+}
+
+.partnership__offer-badges .chip {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: var(--c-line-gold);
+}
+
+.partnership__offer-badges .chip sup {
+  font-size: 0.85em;
+}
+
+.partnership__table-note {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  margin-top: 0.9rem;
+  color: var(--c-dim);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.partnership__table-note .icon {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.2rem;
+  color: var(--c-gold);
+}
+
+.partnership__flyer-caption {
+  padding: 0.75rem 0.9rem;
+  color: var(--c-dim);
+  border-top: 1px solid var(--c-line);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+/* ——— Formations MAFLYT : panneau reprenant le 2ᵉ flyer officiel ——— */
+
+.partnership__formations {
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding: clamp(1.4rem, 4vw, 2.75rem);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(212, 175, 55, 0.09), transparent 55%),
+    linear-gradient(155deg, rgba(23, 20, 14, 0.9), rgba(10, 9, 7, 0.9));
+  border: 1px solid var(--c-line-gold);
+  border-radius: var(--radius-lg);
+}
+
+.partnership__formations-head {
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.partnership__formations-title {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 4vw, 2.9rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.partnership__formations-title em {
+  display: inline-block;
+  padding: 0 0.12em 0.08em 0;
+  font-family: var(--font-serif);
+  font-size: 0.94em;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--c-gold);
+  background: var(--g-gold-text);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.partnership__formations-head > p {
+  max-width: 62rem;
+  color: var(--c-muted);
+  line-height: 1.7;
+}
+
+.partnership__formations-head strong {
+  color: var(--c-gold-light);
+}
+
+.partnership__formations-body {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  align-items: start;
+}
+
+.partnership__formations-content {
+  display: grid;
+  gap: clamp(1.2rem, 3vw, 1.8rem);
+  justify-items: start;
+}
+
+.partnership__flyer--formations {
+  width: 100%;
+  max-width: 30rem;
+}
+
+.training-grid {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.training-card {
+  padding: 1.15rem 1.25rem 1.25rem;
+  background: rgba(5, 5, 5, 0.42);
+  border: 1px solid var(--c-line);
+  border-left: 2px solid var(--c-gold);
+  border-radius: var(--radius);
+  transition: border-color 0.45s ease, background 0.45s ease;
+}
+
+.training-card:hover {
+  border-color: var(--c-line-gold);
+  border-left-color: var(--c-gold-light);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.training-card__title {
+  margin: 0 0 0.5rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-gold-light);
+}
+
+.training-card__list {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--c-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.training-facts {
+  display: grid;
+  gap: 0.7rem;
+  width: 100%;
+  margin: 0;
+}
+
+.training-facts div {
+  padding-bottom: 0.7rem;
+  border-bottom: 1px dashed var(--c-line);
+}
+
+.training-facts dt {
+  color: var(--c-gold-light);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.training-facts dd {
+  margin-top: 0.15rem;
+  margin-inline-start: 0;
+  color: var(--c-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.training-facts div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+/* Les cartes de filière se découvrent en cascade (même mécanique que les valeurs de « À propos »). */
+.training-card:nth-child(2) {
+  --i: 1;
+}
+
+.training-card:nth-child(3) {
+  --i: 2;
+}
+
+.training-card:nth-child(4) {
+  --i: 3;
+}
+
+@media (min-width: 640px) {
+  .training-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .training-card {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1040px) {
+  .partnership__formations-body {
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+  }
+
+  /* pas de sticky ici : .partnership est en overflow: clip, le collage n'aurait aucun effet */
+  .partnership__flyer--formations {
+    max-width: none;
+  }
+
+  .partnership__flyer--formations .partnership__flyer-open {
+    min-height: 22rem;
   }
 }
 

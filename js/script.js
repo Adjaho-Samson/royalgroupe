@@ -44,6 +44,13 @@ const WHATSAPP_MESSAGES = {
     "Bonjour MAFLYT !\n\n" +
     "Je viens de la part de ROYAL GROUPE. Je souhaite profiter de la promotion sur les ordinateurs.\n\n" +
     "Pouvez-vous me renseigner sur les modèles disponibles ?\n\n" +
+    "Merci.",
+
+  maflytFormations:
+    "Bonjour MAFLYT !\n\n" +
+    "Je viens de la part de ROYAL GROUPE. Je souhaite m’inscrire à une formation " +
+    "(informatique, secrétariat bureautique, maintenance ou sérigraphie).\n\n" +
+    "Pouvez-vous me rappeler les dates de rentrée, les durées et les frais ?\n\n" +
     "Merci."
 };
 
@@ -59,14 +66,18 @@ const EVENTS = [
     category: "Soirée",
     date: "2026-12-31",
     time: "22:00",
-    location: "Terrain Classico Barça Réal, Porto-Novo (DKP, 2ᵉ à gauche après l'église Christianiste Céleste)",
+    location: "Porto-Novo, Terrain Classico Barça Réal (DKP, 2ᵉ voie à gauche après l'église Christianiste Céleste)",
     description:
-      "Soirée de fin d'année co-organisée par MOOD PARTY X SUMMER NIGHT X ROYALE GROUPE. Line-up : DJ LIBOZO DeeJay. MCI : KARL DeeJay, LiLü DeeJay. Ambiance garantie, fin d'année en beauté. Réservations : 01 44 60 39 10 / 01 29 70 06 82 / 01 56 39 00 04 / 01 90 37 23 79.",
+      "« Tout le monde sera au Summer Night le 31 décembre. » La grande soirée de fin d'année présentée par MOOD PARTY X SUMMER NIGHT X ROYALE GROUPE, à 22 h au Terrain Classico. " +
+      "DJ : LIBOZO DeeJay — MCI : KARL DeeJay, LiLä DeeJay. Passe unique 1 000 F. " +
+      "Réservations : 01 44 60 39 10 / 01 29 70 06 82 / 01 56 39 00 04 / 01 90 37 23 79.",
     image: "assets/events/summer-night.webp",
     thumb: "assets/events/summer-night-vignette.webp",
-    imageAlt: "Affiche officielle de SUMMER NIGHT, soirée du 31 décembre à Porto-Novo avec DJ LIBOZO DeeJay",
-    gallery: ["assets/events/summer-night-vignette.webp"],
-    tickets: [{ name: "Passe unique", price: "1 000 FCFA" }]
+    imageAlt:
+      "Affiche officielle SUMMER NIGHT : le 31 décembre à 22 h, passe unique 1 000 F, lieu Classico, Porto-Novo — Terrain Classico Barça Réal, quatre numéros de réservation",
+    gallery: ["assets/events/summer-night-affiche-bis.webp"],
+    tickets: [{ name: "Passe unique", price: "1 000 FCFA" }],
+    ticketNote: "Entrée à 22 h précises. Réservation par WhatsApp ou auprès des numéros de l’affiche."
   }
 ];
 
@@ -202,8 +213,9 @@ function isWhatsAppConfigured() {
   return getWhatsAppNumber().length >= 8;
 }
 
-function buildWhatsAppUrl(message) {
-  return `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(message)}`;
+function buildWhatsAppUrl(message, number) {
+  const digits = String(number || "").replace(/\D/g, "") || getWhatsAppNumber();
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }
 
 function getEventMessage(event) {
@@ -558,7 +570,8 @@ function updateWhatsAppLinks(upcoming) {
     const type = link.dataset.whatsapp;
     const message = type === "booking" ? bookingMessage : WHATSAPP_MESSAGES[type] || WHATSAPP_MESSAGES.contact;
 
-    link.href = buildWhatsAppUrl(message);
+    // data-whatsapp-number permet de viser un autre numéro (ex. le secrétariat MAFLYT).
+    link.href = buildWhatsAppUrl(message, link.dataset.whatsappNumber);
     link.target = "_blank";
     link.rel = "noopener noreferrer";
   });
@@ -1185,7 +1198,20 @@ function setupLightbox() {
 }
 
 function refreshEvents() {
-  state.galleries.maflyt = [{ src: "assets/images/maflyt-promotion.webp", alt: "Flyer officiel MAFLYT : grande promotion sur les ordinateurs", title: "Promotion ordinateurs MAFLYT", meta: "Partenariat officiel ROYAL GROUPE × MAFLYT SARL" }];
+  state.galleries.maflyt = [
+    {
+      src: "assets/images/maflyt-promotion.webp",
+      alt: "Flyer officiel MAFLYT : grande promotion sur nos ordinateurs, 20 pour cent de réduction sur tous les PC du 1er novembre au 1er décembre, huit configurations avec prix barrés et prix promo, trois mois de garantie",
+      title: "MAFLYT — Grande promotion sur nos ordinateurs",
+      meta: "-20% sur tous les PC · 3 mois de garantie · du 1er novembre au 1er décembre"
+    },
+    {
+      src: "assets/images/maflyt-formations.webp",
+      alt: "Flyer officiel MAFLYT : formations en secrétariat bureautique, informatique, maintenance et sérigraphie, avec le catalogue des ordinateurs portatifs",
+      title: "MAFLYT — Formations et catalogue des portatifs",
+      meta: "80% pratique, 20% théorie · 1 apprenant, 1 ordinateur · du lundi au vendredi"
+    }
+  ];
   const now = new Date();
   const events = EVENTS.map(normalizeEvent);
   const farFuture = Number.MAX_SAFE_INTEGER;
