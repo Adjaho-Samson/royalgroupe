@@ -38,6 +38,12 @@ const WHATSAPP_MESSAGES = {
   contact:
     "Bonjour Royal Group !\n\n" +
     "Je vous contacte pour une demande d’information.\n\n" +
+    "Merci.",
+
+  maflyt:
+    "Bonjour MAFLYT !\n\n" +
+    "Je viens de la part de ROYAL GROUPE. Je souhaite profiter de la promotion sur les ordinateurs.\n\n" +
+    "Pouvez-vous me renseigner sur les modèles disponibles ?\n\n" +
     "Merci."
 };
 
@@ -47,87 +53,20 @@ const SETTINGS = {
 };
 
 const EVENTS = [
-
   {
-    id: "royal-golden-festival",
-    title: "Royal Golden Festival",
-    category: "Festival",
-    date: "2027-02-27",
-    time: "18:00",
-    location: "Lieu à confirmer",
-    description:
-      "Une scène à ciel ouvert, des artistes jusqu’au bout de la nuit et un show de lumières grand format : le grand rendez-vous festif signé Royal Group.",
-    image: "assets/events/festival-plein-air.webp",
-    thumb: "assets/events/festival-plein-air-vignette.webp",
-    imageAlt: "Grande scène de festival en plein air au crépuscule, devant une foule immense",
-    tickets: [
-      { name: "Ticket Standard", price: "Tarif à confirmer" },
-      { name: "Ticket VIP", price: "Tarif à confirmer" }
-    ],
-    demo: true
-  },
-  {
-    id: "royal-dj-experience",
-    title: "Royal DJ Experience",
-    category: "Soirée DJ",
-    date: "2027-05-15",
-    time: "21:00",
-    location: "Lieu à confirmer",
-    description:
-      "Un DJ set grand format, des effets pyrotechniques et une foule prête à tout donner jusqu’au bout de la nuit.",
-    image: "assets/events/dj-set.webp",
-    thumb: "assets/events/dj-set-vignette.webp",
-    imageAlt: "DJ de dos, bras levé, face à une foule immense entourée de gerbes d’étincelles",
-    tickets: [
-      { name: "Pass Simple", price: "Tarif à confirmer" },
-      { name: "Pass VIP", price: "Tarif à confirmer" }
-    ],
-    demo: true
-  },
-
-  {
-    id: "royal-night-live",
-    title: "Royal Night Live",
-    category: "Concert",
-    date: "2026-09-26",
-    time: "20:00",
-    location: "Lieu de démonstration",
-    description:
-      "Une nuit de live portée par une scène spectaculaire, une pluie de confettis et un public en fusion.",
-    image: "assets/events/concert-foule.webp",
-    thumb: "assets/events/concert-foule-vignette.webp",
-    imageAlt: "Foule enthousiaste, mains levées, face à une scène de concert sous une pluie de confettis",
-    gallery: ["assets/events/artistes-sur-scene.webp", "assets/events/jeux-de-lumiere.webp"],
-    demo: true
-  },
-  {
-    id: "soiree-prestige",
-    title: "Soirée Prestige",
-    category: "Soirée VIP",
-    date: "2026-07-18",
+    id: "summer-night-2026",
+    title: "SUMMER NIGHT",
+    category: "Soirée",
+    date: "2026-12-31",
     time: "22:00",
-    location: "Lieu de démonstration",
+    location: "Terrain Classico Barça Réal, Porto-Novo (DKP, 2ᵉ à gauche après l'église Christianiste Céleste)",
     description:
-      "Tenues élégantes, décor noir et or, ambiance festive : une soirée VIP pensée dans les moindres détails.",
-    image: "assets/events/soiree-vip.webp",
-    thumb: "assets/events/soiree-vip-vignette.webp",
-    imageAlt: "Invités élégants qui font la fête dans un salon VIP décoré de noir et d’or",
-    gallery: ["assets/images/a-propos-soiree-prestige.webp", "assets/images/a-propos-accueil.webp"],
-    demo: true
-  },
-  {
-    id: "gala-royal",
-    title: "Gala Royal",
-    category: "Gala",
-    date: "2026-05-30",
-    time: "19:30",
-    location: "Lieu de démonstration",
-    description:
-      "Dîner de gala, scène et lumières tamisées : une grande rencontre placée sous le signe de l’élégance.",
-    image: "assets/events/gala-prestige.webp",
-    thumb: "assets/events/gala-prestige-vignette.webp",
-    imageAlt: "Grande salle de gala aux tables dressées de noir et d’or, sous des lustres en cristal",
-    demo: true
+      "Soirée de fin d'année co-organisée par MOOD PARTY X SUMMER NIGHT X ROYALE GROUPE. Line-up : DJ LIBOZO DeeJay. MCI : KARL DeeJay, LiLü DeeJay. Ambiance garantie, fin d'année en beauté. Réservations : 01 44 60 39 10 / 01 29 70 06 82 / 01 56 39 00 04 / 01 90 37 23 79.",
+    image: "assets/events/summer-night.webp",
+    thumb: "assets/events/summer-night-vignette.webp",
+    imageAlt: "Affiche officielle de SUMMER NIGHT, soirée du 31 décembre à Porto-Novo avec DJ LIBOZO DeeJay",
+    gallery: ["assets/events/summer-night-vignette.webp"],
+    tickets: [{ name: "Passe unique", price: "1 000 FCFA" }]
   }
 ];
 
@@ -139,7 +78,7 @@ const state = {
   past: [],
   day: "",
   isStarted: false,
-  galleries: { past: [], upcoming: [] }
+  galleries: { past: [], upcoming: [], maflyt: [] }
 };
 
 function runSteps(steps) {
@@ -426,9 +365,15 @@ function renderUpcomingEvents(upcoming, now) {
   const photos = [];
   const cards = upcoming.map((event, index) => {
     let photoIndex = -1;
-    if (event.image) {
+    const eventPhotos = [event.image].concat(Array.isArray(event.gallery) ? event.gallery : []).filter(Boolean);
+    if (eventPhotos.length) {
       photoIndex = photos.length;
-      photos.push({ src: event.image, alt: event.imageAlt || event.title, title: event.title, meta: eventCaption(event) });
+      eventPhotos.forEach((src, photoNumber) => photos.push({
+        src,
+        alt: photoNumber === 0 ? event.imageAlt || event.title : `${event.title} — affiche alternative`,
+        title: event.title,
+        meta: eventCaption(event)
+      }));
     }
     return ticketTemplate(event, index === 0, photoIndex, now);
   });
@@ -590,6 +535,16 @@ function setupImageFallback() {
 
     if (image.matches(".ticket__img, .past-card__img")) {
       image.outerHTML = `<div class="media-fallback">${brandMark()}</div>`;
+    } else if (image.matches(".partnership__flyer img")) {
+      const button = image.closest(".partnership__flyer-open");
+      if (button) {
+        button.disabled = true;
+        button.removeAttribute("data-lightbox");
+        image.replaceWith(Object.assign(document.createElement("span"), {
+          className: "partnership__flyer-missing",
+          textContent: "Le flyer officiel MAFLYT sera affiché ici."
+        }));
+      }
     } else if (image.closest(".hero-next__thumb")) {
       image.outerHTML = brandMark();
     }
@@ -1230,6 +1185,7 @@ function setupLightbox() {
 }
 
 function refreshEvents() {
+  state.galleries.maflyt = [{ src: "assets/images/maflyt-promotion.webp", alt: "Flyer officiel MAFLYT : grande promotion sur les ordinateurs", title: "Promotion ordinateurs MAFLYT", meta: "Partenariat officiel ROYAL GROUPE × MAFLYT SARL" }];
   const now = new Date();
   const events = EVENTS.map(normalizeEvent);
   const farFuture = Number.MAX_SAFE_INTEGER;
