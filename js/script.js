@@ -1,5 +1,3 @@
-
-
 "use strict";
 
 const WHATSAPP_NUMBER = "2290144603910";
@@ -12,12 +10,11 @@ const CONTACT = {
   instagram: "",
   otherSocials: [
     { name: "TikTok", url: "" },
-    { name: "YouTube", url: "" }
-  ]
+    { name: "YouTube", url: "" },
+  ],
 };
 
 const WHATSAPP_MESSAGES = {
-
   event:
     "Bonjour Royal Group !\n\n" +
     "Je souhaite réserver un ticket pour votre événement : {event}.\n\n" +
@@ -38,16 +35,14 @@ const WHATSAPP_MESSAGES = {
   contact:
     "Bonjour Royal Group !\n\n" +
     "Je vous contacte pour une demande d’information.\n\n" +
-    "Merci."
+    "Merci.",
 };
 
 const SETTINGS = {
-
-  heroVideo: ""
+  heroVideo: "",
 };
 
 const EVENTS = [
-
   {
     id: "royal-golden-festival",
     title: "Royal Golden Festival",
@@ -59,16 +54,17 @@ const EVENTS = [
       "Une scène à ciel ouvert, des artistes jusqu’au bout de la nuit et un show de lumières grand format : le grand rendez-vous festif signé Royal Group.",
     image: "assets/events/festival-plein-air.webp",
     thumb: "assets/events/festival-plein-air-vignette.webp",
-    imageAlt: "Grande scène de festival en plein air au crépuscule, devant une foule immense",
+    imageAlt:
+      "Grande scène de festival en plein air au crépuscule, devant une foule immense",
     tickets: [
       { name: "Ticket Standard", price: "Tarif à confirmer" },
-      { name: "Ticket VIP", price: "Tarif à confirmer" }
+      { name: "Ticket VIP", price: "Tarif à confirmer" },
     ],
-    demo: true
+    demo: true,
   },
   {
     id: "royal-dj-experience",
-    title: "Royal DJ Experience",
+    title: "LaLa Deejay",
     category: "Soirée DJ",
     date: "2027-05-15",
     time: "21:00",
@@ -77,12 +73,13 @@ const EVENTS = [
       "Un DJ set grand format, des effets pyrotechniques et une foule prête à tout donner jusqu’au bout de la nuit.",
     image: "assets/events/dj-set.webp",
     thumb: "assets/events/dj-set-vignette.webp",
-    imageAlt: "DJ de dos, bras levé, face à une foule immense entourée de gerbes d’étincelles",
+    imageAlt:
+      "DJ de dos, bras levé, face à une foule immense entourée de gerbes d’étincelles",
     tickets: [
       { name: "Pass Simple", price: "Tarif à confirmer" },
-      { name: "Pass VIP", price: "Tarif à confirmer" }
+      { name: "Pass VIP", price: "Tarif à confirmer" },
     ],
-    demo: true
+    demo: true,
   },
 
   {
@@ -96,9 +93,13 @@ const EVENTS = [
       "Une nuit de live portée par une scène spectaculaire, une pluie de confettis et un public en fusion.",
     image: "assets/events/concert-foule.webp",
     thumb: "assets/events/concert-foule-vignette.webp",
-    imageAlt: "Foule enthousiaste, mains levées, face à une scène de concert sous une pluie de confettis",
-    gallery: ["assets/events/artistes-sur-scene.webp", "assets/events/jeux-de-lumiere.webp"],
-    demo: true
+    imageAlt:
+      "Foule enthousiaste, mains levées, face à une scène de concert sous une pluie de confettis",
+    gallery: [
+      "assets/events/artistes-sur-scene.webp",
+      "assets/events/jeux-de-lumiere.webp",
+    ],
+    demo: true,
   },
   {
     id: "soiree-prestige",
@@ -111,9 +112,13 @@ const EVENTS = [
       "Tenues élégantes, décor noir et or, ambiance festive : une soirée VIP pensée dans les moindres détails.",
     image: "assets/events/soiree-vip.webp",
     thumb: "assets/events/soiree-vip-vignette.webp",
-    imageAlt: "Invités élégants qui font la fête dans un salon VIP décoré de noir et d’or",
-    gallery: ["assets/images/a-propos-soiree-prestige.webp", "assets/images/a-propos-accueil.webp"],
-    demo: true
+    imageAlt:
+      "Invités élégants qui font la fête dans un salon VIP décoré de noir et d’or",
+    gallery: [
+      "assets/images/a-propos-soiree-prestige.webp",
+      "assets/images/a-propos-accueil.webp",
+    ],
+    demo: true,
   },
   {
     id: "gala-royal",
@@ -126,20 +131,25 @@ const EVENTS = [
       "Dîner de gala, scène et lumières tamisées : une grande rencontre placée sous le signe de l’élégance.",
     image: "assets/events/gala-prestige.webp",
     thumb: "assets/events/gala-prestige-vignette.webp",
-    imageAlt: "Grande salle de gala aux tables dressées de noir et d’or, sous des lustres en cristal",
-    demo: true
-  }
+    imageAlt:
+      "Grande salle de gala aux tables dressées de noir et d’or, sous des lustres en cristal",
+    demo: true,
+  },
 ];
 
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
+const hasFinePointer = window.matchMedia(
+  "(hover: hover) and (pointer: fine)",
+).matches;
 
 const state = {
   upcoming: [],
   past: [],
   day: "",
   isStarted: false,
-  galleries: { past: [], upcoming: [] }
+  galleries: { past: [], upcoming: [] },
 };
 
 function runSteps(steps) {
@@ -153,8 +163,17 @@ function runSteps(steps) {
 }
 
 function escapeHtml(value) {
-  const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
-  return String(value === undefined || value === null ? "" : value).replace(/[&<>"']/g, (char) => entities[char]);
+  const entities = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  };
+  return String(value === undefined || value === null ? "" : value).replace(
+    /[&<>"']/g,
+    (char) => entities[char],
+  );
 }
 
 function capitalize(text) {
@@ -170,13 +189,27 @@ function brandMark(extraClass) {
   return `<svg class="${extraClass || ""}" aria-hidden="true" focusable="false"><use href="#rg-mark"></use></svg>`;
 }
 
-const DATE_LONG = new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-const DATE_MEDIUM = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-const DATE_DAY_MONTH = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long" });
+const DATE_LONG = new Intl.DateTimeFormat("fr-FR", {
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+const DATE_MEDIUM = new Intl.DateTimeFormat("fr-FR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+const DATE_DAY_MONTH = new Intl.DateTimeFormat("fr-FR", {
+  day: "numeric",
+  month: "long",
+});
 const MONTH_SHORT = new Intl.DateTimeFormat("fr-FR", { month: "short" });
 
 function parseDate(dateText, timeText) {
-  const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(dateText || "").trim());
+  const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(
+    String(dateText || "").trim(),
+  );
   if (!dateMatch) return null;
 
   const year = Number(dateMatch[1]);
@@ -188,7 +221,10 @@ function parseDate(dateText, timeText) {
   const minutes = timeMatch ? Number(timeMatch[2]) : 0;
 
   const date = new Date(year, month - 1, day, hours, minutes);
-  const isRealDate = date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+  const isRealDate =
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day;
   return isRealDate ? date : null;
 }
 
@@ -219,7 +255,9 @@ function formatEventDate(event, style) {
   const end = parseDate(event.endDate);
   if (end && end.getTime() > start.getTime()) {
     const sameYear = start.getFullYear() === end.getFullYear();
-    const from = sameYear ? DATE_DAY_MONTH.format(start) : DATE_MEDIUM.format(start);
+    const from = sameYear
+      ? DATE_DAY_MONTH.format(start)
+      : DATE_MEDIUM.format(start);
     return `Du ${frenchFirstDay(from)} au ${frenchFirstDay(DATE_MEDIUM.format(end))}`;
   }
 
@@ -233,7 +271,8 @@ function formatTime(timeText) {
 }
 
 function daysUntil(date, now) {
-  const startOfDay = (value) => new Date(value.getFullYear(), value.getMonth(), value.getDate()).getTime();
+  const startOfDay = (value) =>
+    new Date(value.getFullYear(), value.getMonth(), value.getDate()).getTime();
   return Math.round((startOfDay(date) - startOfDay(now)) / 86400000);
 }
 
@@ -250,7 +289,9 @@ function normalizeEvent(event, index) {
   normalized.title = String(event.title || "Événement");
 
   if (event.date && !parseDate(event.date)) {
-    console.warn(`[Royal Group] Date invalide pour « ${normalized.title} » : "${event.date}". Format attendu : AAAA-MM-JJ.`);
+    console.warn(
+      `[Royal Group] Date invalide pour « ${normalized.title} » : "${event.date}". Format attendu : AAAA-MM-JJ.`,
+    );
   }
   return normalized;
 }
@@ -280,7 +321,10 @@ function showToast(html, duration) {
   toast.innerHTML = html;
   toast.classList.add("is-visible");
   window.clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), duration || 7000);
+  toastTimer = window.setTimeout(
+    () => toast.classList.remove("is-visible"),
+    duration || 7000,
+  );
 }
 
 const scrollLocks = new Set();
@@ -297,7 +341,9 @@ function lockScroll(reason, isLocked) {
 function trapFocus(event, elements) {
   if (event.key !== "Tab") return;
 
-  const focusable = elements.filter((element) => element && !element.hidden && element.offsetParent !== null);
+  const focusable = elements.filter(
+    (element) => element && !element.hidden && element.offsetParent !== null,
+  );
   if (focusable.length === 0) return;
 
   const first = focusable[0];
@@ -307,7 +353,10 @@ function trapFocus(event, elements) {
   if (event.shiftKey && (active === first || !focusable.includes(active))) {
     event.preventDefault();
     last.focus();
-  } else if (!event.shiftKey && (active === last || !focusable.includes(active))) {
+  } else if (
+    !event.shiftKey &&
+    (active === last || !focusable.includes(active))
+  ) {
     event.preventDefault();
     first.focus();
   }
@@ -322,7 +371,9 @@ function eventImage(event, source, cssClass) {
 }
 
 function eventCaption(event) {
-  return [formatEventDate(event, "medium"), event.location].filter(Boolean).join(" · ");
+  return [formatEventDate(event, "medium"), event.location]
+    .filter(Boolean)
+    .join(" · ");
 }
 
 function ticketTemplate(event, isFeatured, photoIndex, now) {
@@ -331,9 +382,12 @@ function ticketTemplate(event, isFeatured, photoIndex, now) {
   const time = formatTime(event.time);
 
   const tags = [];
-  if (isFeatured) tags.push('<span class="chip chip--gold">Prochain rendez-vous</span>');
-  if (event.category) tags.push(`<span class="chip">${escapeHtml(event.category)}</span>`);
-  if (!isFeatured && start) tags.push(`<span class="chip">${relativeDayLabel(start, now)}</span>`);
+  if (isFeatured)
+    tags.push('<span class="chip chip--gold">Prochain rendez-vous</span>');
+  if (event.category)
+    tags.push(`<span class="chip">${escapeHtml(event.category)}</span>`);
+  if (!isFeatured && start)
+    tags.push(`<span class="chip">${relativeDayLabel(start, now)}</span>`);
   if (event.demo) tags.push('<span class="chip chip--demo">Démo</span>');
 
   const dateBadge = start
@@ -344,32 +398,50 @@ function ticketTemplate(event, isFeatured, photoIndex, now) {
        <span class="ticket__month">À venir</span>`;
 
   const meta = [];
-  meta.push(`<li>${icon("calendar")}<span><span class="sr-only">Date : </span>${
-    start ? `<time datetime="${escapeHtml(event.date)}">${formatEventDate(event, "long")}</time>` : "Date à annoncer"
-  }</span></li>`);
-  if (time) meta.push(`<li>${icon("clock")}<span><span class="sr-only">Heure : </span>${time}</span></li>`);
-  if (event.location) meta.push(`<li>${icon("pin")}<span><span class="sr-only">Lieu : </span>${escapeHtml(event.location)}</span></li>`);
+  meta.push(
+    `<li>${icon("calendar")}<span><span class="sr-only">Date : </span>${
+      start
+        ? `<time datetime="${escapeHtml(event.date)}">${formatEventDate(event, "long")}</time>`
+        : "Date à annoncer"
+    }</span></li>`,
+  );
+  if (time)
+    meta.push(
+      `<li>${icon("clock")}<span><span class="sr-only">Heure : </span>${time}</span></li>`,
+    );
+  if (event.location)
+    meta.push(
+      `<li>${icon("pin")}<span><span class="sr-only">Lieu : </span>${escapeHtml(event.location)}</span></li>`,
+    );
 
-  const tickets = Array.isArray(event.tickets) ? event.tickets.filter((ticket) => ticket && ticket.name) : [];
+  const tickets = Array.isArray(event.tickets)
+    ? event.tickets.filter((ticket) => ticket && ticket.name)
+    : [];
   const ticketList = tickets.length
     ? `<ul>${tickets.map((ticket) => `<li><span>${escapeHtml(ticket.name)}</span><span>${escapeHtml(ticket.price || "Tarif à venir")}</span></li>`).join("")}</ul>`
     : '<p class="ticket__prices-note">Informations sur les tickets communiquées prochainement.</p>';
-  const ticketNote = event.ticketNote ? `<p class="ticket__prices-note">${escapeHtml(event.ticketNote)}</p>` : "";
+  const ticketNote = event.ticketNote
+    ? `<p class="ticket__prices-note">${escapeHtml(event.ticketNote)}</p>`
+    : "";
 
-  const countdown = isFeatured && start
-    ? `<div class="countdown" data-countdown="${start.getTime()}" role="timer" aria-label="Temps restant avant l’événement">
+  const countdown =
+    isFeatured && start
+      ? `<div class="countdown" data-countdown="${start.getTime()}" role="timer" aria-label="Temps restant avant l’événement">
          <div class="countdown__cell"><span class="countdown__value" data-unit="days">--</span><span class="countdown__unit">Jours</span></div>
          <div class="countdown__cell"><span class="countdown__value" data-unit="hours">--</span><span class="countdown__unit">Heures</span></div>
          <div class="countdown__cell"><span class="countdown__value" data-unit="minutes">--</span><span class="countdown__unit">Min</span></div>
          <div class="countdown__cell"><span class="countdown__value" data-unit="seconds">--</span><span class="countdown__unit">Sec</span></div>
        </div>`
-    : "";
+      : "";
 
-  const source = isFeatured ? event.image || event.thumb : event.thumb || event.image;
-  const zoomButton = photoIndex >= 0
-    ? `<button class="ticket__zoom" type="button" data-lightbox="upcoming" data-index="${photoIndex}" aria-label="Agrandir l’affiche : ${title}"></button>
+  const source = isFeatured
+    ? event.image || event.thumb
+    : event.thumb || event.image;
+  const zoomButton =
+    photoIndex >= 0
+      ? `<button class="ticket__zoom" type="button" data-lightbox="upcoming" data-index="${photoIndex}" aria-label="Agrandir l’affiche : ${title}"></button>
        <span class="ticket__zoom-icon" aria-hidden="true">${icon("expand")}</span>`
-    : "";
+      : "";
 
   return `
     <article class="ticket${isFeatured ? " ticket--featured" : ""}" data-reveal>
@@ -402,7 +474,9 @@ function ticketTemplate(event, isFeatured, photoIndex, now) {
 }
 
 function moreEventsTemplate(hasNoEvent) {
-  const title = hasNoEvent ? "De nouveaux événements arrivent bientôt" : "D’autres dates arrivent";
+  const title = hasNoEvent
+    ? "De nouveaux événements arrivent bientôt"
+    : "D’autres dates arrivent";
   const text = hasNoEvent
     ? "La prochaine programmation de Royal Group est en préparation. Écrivez-nous sur WhatsApp pour être informé(e) dès l’ouverture des réservations."
     : "De nouveaux rendez-vous sont en préparation. Écrivez-nous sur WhatsApp pour être informé(e) des prochaines annonces.";
@@ -428,7 +502,12 @@ function renderUpcomingEvents(upcoming, now) {
     let photoIndex = -1;
     if (event.image) {
       photoIndex = photos.length;
-      photos.push({ src: event.image, alt: event.imageAlt || event.title, title: event.title, meta: eventCaption(event) });
+      photos.push({
+        src: event.image,
+        alt: event.imageAlt || event.title,
+        title: event.title,
+        meta: eventCaption(event),
+      });
     }
     return ticketTemplate(event, index === 0, photoIndex, now);
   });
@@ -446,15 +525,22 @@ function pastCardTemplate(event, index, isWide, photoIndex, photoCount) {
   const title = escapeHtml(event.title);
 
   const tags = [];
-  if (event.category) tags.push(`<span class="chip">${escapeHtml(event.category)}</span>`);
-  if (photoCount > 1) tags.push(`<span class="chip">${photoCount} photos</span>`);
+  if (event.category)
+    tags.push(`<span class="chip">${escapeHtml(event.category)}</span>`);
+  if (photoCount > 1)
+    tags.push(`<span class="chip">${photoCount} photos</span>`);
   if (event.demo) tags.push('<span class="chip chip--demo">Démo</span>');
 
   const meta = [];
-  meta.push(`<span>${icon("calendar")}<time datetime="${escapeHtml(event.date)}">${formatEventDate(event, "medium")}</time></span>`);
-  if (event.location) meta.push(`<span>${icon("pin")}${escapeHtml(event.location)}</span>`);
+  meta.push(
+    `<span>${icon("calendar")}<time datetime="${escapeHtml(event.date)}">${formatEventDate(event, "medium")}</time></span>`,
+  );
+  if (event.location)
+    meta.push(`<span>${icon("pin")}${escapeHtml(event.location)}</span>`);
 
-  const source = isWide ? event.image || event.thumb : event.thumb || event.image;
+  const source = isWide
+    ? event.image || event.thumb
+    : event.thumb || event.image;
   const hasPhoto = photoCount > 0;
 
   return `
@@ -482,7 +568,8 @@ function renderPastEvents(past) {
 
   if (past.length === 0) {
     state.galleries.past = [];
-    grid.innerHTML = '<p class="empty-state">Les souvenirs de nos événements seront bientôt publiés ici.</p>';
+    grid.innerHTML =
+      '<p class="empty-state">Les souvenirs de nos événements seront bientôt publiés ici.</p>';
     return;
   }
 
@@ -491,17 +578,28 @@ function renderPastEvents(past) {
 
   const photos = [];
   const cards = past.map((event, index) => {
-    const eventPhotos = [event.image].concat(Array.isArray(event.gallery) ? event.gallery : []).filter(Boolean);
+    const eventPhotos = [event.image]
+      .concat(Array.isArray(event.gallery) ? event.gallery : [])
+      .filter(Boolean);
     const photoIndex = photos.length;
     eventPhotos.forEach((src, position) => {
       photos.push({
         src: src,
-        alt: position === 0 && event.imageAlt ? event.imageAlt : `${event.title} — photo ${position + 1}`,
+        alt:
+          position === 0 && event.imageAlt
+            ? event.imageAlt
+            : `${event.title} — photo ${position + 1}`,
         title: event.title,
-        meta: eventCaption(event)
+        meta: eventCaption(event),
       });
     });
-    return pastCardTemplate(event, index, index < wideCount, photoIndex, eventPhotos.length);
+    return pastCardTemplate(
+      event,
+      index,
+      index < wideCount,
+      photoIndex,
+      eventPhotos.length,
+    );
   });
 
   state.galleries.past = photos;
@@ -519,7 +617,9 @@ function renderHeroNext(event, now) {
 
   const start = getEventStart(event);
   const source = event.thumb || event.image;
-  const thumb = source ? `<img src="${escapeHtml(source)}" alt="" width="58" height="58" decoding="async">` : brandMark();
+  const thumb = source
+    ? `<img src="${escapeHtml(source)}" alt="" width="58" height="58" decoding="async">`
+    : brandMark();
 
   let count = "";
   let shortCount = "";
@@ -531,7 +631,9 @@ function renderHeroNext(event, now) {
     else count = "<strong>Jour J</strong><span>Aujourd’hui</span>";
   }
 
-  const place = event.location ? `<span class="hero-next__place"> · ${escapeHtml(event.location)}</span>` : "";
+  const place = event.location
+    ? `<span class="hero-next__place"> · ${escapeHtml(event.location)}</span>`
+    : "";
 
   slot.innerHTML = `
     <a class="hero-next" href="#prochains-evenements">
@@ -555,7 +657,8 @@ function updateCountdowns() {
     const remaining = Number(countdown.dataset.countdown) - now;
 
     if (remaining <= 0) {
-      countdown.innerHTML = '<p class="countdown__live">C’est le grand jour !</p>';
+      countdown.innerHTML =
+        '<p class="countdown__live">C’est le grand jour !</p>';
       countdown.removeAttribute("data-countdown");
       return;
     }
@@ -565,7 +668,7 @@ function updateCountdowns() {
       days: Math.floor(totalSeconds / 86400),
       hours: Math.floor((totalSeconds % 86400) / 3600),
       minutes: Math.floor((totalSeconds % 3600) / 60),
-      seconds: totalSeconds % 60
+      seconds: totalSeconds % 60,
     };
 
     Object.keys(values).forEach((unit) => {
@@ -584,24 +687,34 @@ function startCountdowns() {
 }
 
 function setupImageFallback() {
-  document.addEventListener("error", (event) => {
-    const image = event.target;
-    if (!(image instanceof HTMLImageElement)) return;
+  document.addEventListener(
+    "error",
+    (event) => {
+      const image = event.target;
+      if (!(image instanceof HTMLImageElement)) return;
 
-    if (image.matches(".ticket__img, .past-card__img")) {
-      image.outerHTML = `<div class="media-fallback">${brandMark()}</div>`;
-    } else if (image.closest(".hero-next__thumb")) {
-      image.outerHTML = brandMark();
-    }
-  }, true);
+      if (image.matches(".ticket__img, .past-card__img")) {
+        image.outerHTML = `<div class="media-fallback">${brandMark()}</div>`;
+      } else if (image.closest(".hero-next__thumb")) {
+        image.outerHTML = brandMark();
+      }
+    },
+    true,
+  );
 }
 
 function updateWhatsAppLinks(upcoming) {
-  const bookingMessage = upcoming.length === 1 ? getEventMessage(upcoming[0]) : WHATSAPP_MESSAGES.booking;
+  const bookingMessage =
+    upcoming.length === 1
+      ? getEventMessage(upcoming[0])
+      : WHATSAPP_MESSAGES.booking;
 
   document.querySelectorAll("a[data-whatsapp]").forEach((link) => {
     const type = link.dataset.whatsapp;
-    const message = type === "booking" ? bookingMessage : WHATSAPP_MESSAGES[type] || WHATSAPP_MESSAGES.contact;
+    const message =
+      type === "booking"
+        ? bookingMessage
+        : WHATSAPP_MESSAGES[type] || WHATSAPP_MESSAGES.contact;
 
     link.href = buildWhatsAppUrl(message);
     link.target = "_blank";
@@ -612,12 +725,20 @@ function updateWhatsAppLinks(upcoming) {
 function setupDemoNotice() {
   if (isWhatsAppConfigured()) return;
 
-  console.info("[Royal Group] Mode démonstration : renseignez WHATSAPP_NUMBER dans js/script.js pour activer la réservation.");
+  console.info(
+    "[Royal Group] Mode démonstration : renseignez WHATSAPP_NUMBER dans js/script.js pour activer la réservation.",
+  );
 
   document.addEventListener("click", (event) => {
-    const link = event.target instanceof Element ? event.target.closest('a[href^="https://wa.me/"]') : null;
+    const link =
+      event.target instanceof Element
+        ? event.target.closest('a[href^="https://wa.me/"]')
+        : null;
     if (link) {
-      showToast("<strong>Mode démonstration :</strong> le numéro WhatsApp officiel n’est pas encore configuré. WhatsApp s’ouvre avec le message prérempli, sans destinataire.", 9000);
+      showToast(
+        "<strong>Mode démonstration :</strong> le numéro WhatsApp officiel n’est pas encore configuré. WhatsApp s’ouvre avec le message prérempli, sans destinataire.",
+        9000,
+      );
     }
   });
 }
@@ -647,11 +768,15 @@ function updateBooking(upcoming) {
   const previousChoice = select.value;
   select.length = 1;
   upcoming.forEach((event) => {
-    const label = getEventStart(event) ? `${event.title} — ${formatEventDate(event, "medium")}` : event.title;
+    const label = getEventStart(event)
+      ? `${event.title} — ${formatEventDate(event, "medium")}`
+      : event.title;
     select.add(new Option(label, event.id));
   });
 
-  const isChoiceStillValid = previousChoice === "" || upcoming.some((event) => event.id === previousChoice);
+  const isChoiceStillValid =
+    previousChoice === "" ||
+    upcoming.some((event) => event.id === previousChoice);
   if (isBookingReady && isChoiceStillValid) {
     select.value = previousChoice;
   } else {
@@ -683,24 +808,44 @@ function setupContact() {
     const value = item ? item.querySelector(".contact-item__value") : null;
     if (!value) return;
 
-    const attributes = isExternal ? ' target="_blank" rel="noopener noreferrer"' : "";
+    const attributes = isExternal
+      ? ' target="_blank" rel="noopener noreferrer"'
+      : "";
     value.innerHTML = `<a class="contact-item__link contact-item__link--stretched" href="${escapeHtml(href)}"${attributes}>${escapeHtml(text)}</a>`;
     item.classList.add("is-active");
-    item.insertAdjacentHTML("beforeend", icon("arrow-up-right", "contact-item__arrow"));
+    item.insertAdjacentHTML(
+      "beforeend",
+      icon("arrow-up-right", "contact-item__arrow"),
+    );
   }
 
   if (CONTACT.phone) {
-    activate("phone", CONTACT.phone, `tel:${String(CONTACT.phone).replace(/[^\d+]/g, "")}`, false);
+    activate(
+      "phone",
+      CONTACT.phone,
+      `tel:${String(CONTACT.phone).replace(/[^\d+]/g, "")}`,
+      false,
+    );
   }
 
   if (isWhatsAppConfigured()) {
     const url = buildWhatsAppUrl(WHATSAPP_MESSAGES.contact);
-    activate("whatsapp", CONTACT.whatsappLabel || `+${getWhatsAppNumber()}`, url, true);
+    activate(
+      "whatsapp",
+      CONTACT.whatsappLabel || `+${getWhatsAppNumber()}`,
+      url,
+      true,
+    );
     socials.push({ name: "WhatsApp", url: url, iconName: "whatsapp" });
   }
 
   if (CONTACT.email) {
-    activate("email", CONTACT.email, `mailto:${String(CONTACT.email).trim()}`, false);
+    activate(
+      "email",
+      CONTACT.email,
+      `mailto:${String(CONTACT.email).trim()}`,
+      false,
+    );
   }
 
   ["facebook", "instagram"].forEach((network) => {
@@ -710,22 +855,42 @@ function setupContact() {
     socials.push({ name: capitalize(network), url: url, iconName: network });
   });
 
-  const others = (Array.isArray(CONTACT.otherSocials) ? CONTACT.otherSocials : [])
-    .map((social) => ({ name: String((social && social.name) || "").trim(), url: normalizeUrl(social && social.url) }))
+  const others = (
+    Array.isArray(CONTACT.otherSocials) ? CONTACT.otherSocials : []
+  )
+    .map((social) => ({
+      name: String((social && social.name) || "").trim(),
+      url: normalizeUrl(social && social.url),
+    }))
     .filter((social) => social.name && social.url);
 
   const othersItem = document.querySelector('[data-contact="others"]');
-  const othersValue = othersItem ? othersItem.querySelector(".contact-item__value") : null;
+  const othersValue = othersItem
+    ? othersItem.querySelector(".contact-item__value")
+    : null;
   if (others.length > 0 && othersValue) {
     othersValue.innerHTML = others
-      .map((social) => `<a class="contact-item__link" href="${escapeHtml(social.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(social.name)}</a>`)
+      .map(
+        (social) =>
+          `<a class="contact-item__link" href="${escapeHtml(social.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(social.name)}</a>`,
+      )
       .join('<span class="contact-item__sep" aria-hidden="true">·</span>');
     othersItem.classList.add("is-active", "is-multiple");
 
-    const knownIcons = ["tiktok", "youtube", "facebook", "instagram", "whatsapp"];
+    const knownIcons = [
+      "tiktok",
+      "youtube",
+      "facebook",
+      "instagram",
+      "whatsapp",
+    ];
     others.forEach((social) => {
       const key = social.name.toLowerCase();
-      socials.push({ name: social.name, url: social.url, iconName: knownIcons.includes(key) ? key : "" });
+      socials.push({
+        name: social.name,
+        url: social.url,
+        iconName: knownIcons.includes(key) ? key : "",
+      });
     });
   }
 
@@ -733,7 +898,9 @@ function setupContact() {
   if (footerSocials && socials.length > 0) {
     footerSocials.innerHTML = socials
       .map((social) => {
-        const symbol = social.iconName ? icon(social.iconName, "icon--brand") : icon("share");
+        const symbol = social.iconName
+          ? icon(social.iconName, "icon--brand")
+          : icon("share");
         return `<li><a href="${escapeHtml(social.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(social.name)}">${symbol}</a></li>`;
       })
       .join("");
@@ -759,7 +926,10 @@ function setupMobileMenu() {
   function setMenu(open) {
     header.classList.toggle("is-menu-open", open);
     toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+    toggle.setAttribute(
+      "aria-label",
+      open ? "Fermer le menu" : "Ouvrir le menu",
+    );
     if (label) label.textContent = open ? "Fermer" : "Menu";
     lockScroll("menu", open);
   }
@@ -767,7 +937,12 @@ function setupMobileMenu() {
   toggle.addEventListener("click", () => setMenu(!isOpen()));
 
   nav.addEventListener("click", (event) => {
-    if (isOpen() && event.target instanceof Element && event.target.closest("a")) setMenu(false);
+    if (
+      isOpen() &&
+      event.target instanceof Element &&
+      event.target.closest("a")
+    )
+      setMenu(false);
   });
 
   document.addEventListener("keydown", (event) => {
@@ -792,24 +967,29 @@ function setupScrollSpy() {
   const links = Array.from(document.querySelectorAll(".site-nav__link"));
   const linkBySection = new Map();
   links.forEach((link) => {
-    const section = document.getElementById(String(link.getAttribute("href")).slice(1));
+    const section = document.getElementById(
+      String(link.getAttribute("href")).slice(1),
+    );
     if (section) linkBySection.set(section, link);
   });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
 
-      links.forEach((link) => {
-        link.classList.remove("is-active");
-        link.removeAttribute("aria-current");
+        links.forEach((link) => {
+          link.classList.remove("is-active");
+          link.removeAttribute("aria-current");
+        });
+
+        const activeLink = linkBySection.get(entry.target);
+        activeLink.classList.add("is-active");
+        activeLink.setAttribute("aria-current", "true");
       });
-
-      const activeLink = linkBySection.get(entry.target);
-      activeLink.classList.add("is-active");
-      activeLink.setAttribute("aria-current", "true");
-    });
-  }, { rootMargin: "-45% 0px -55% 0px" });
+    },
+    { rootMargin: "-45% 0px -55% 0px" },
+  );
 
   linkBySection.forEach((link, section) => observer.observe(section));
 }
@@ -818,7 +998,9 @@ function setupScrollEffects() {
   const header = document.getElementById("site-header");
   const progressBar = document.querySelector(".scroll-progress__bar");
   const hero = document.querySelector(".hero");
-  const parallaxImages = prefersReducedMotion ? [] : Array.from(document.querySelectorAll("[data-parallax]"));
+  const parallaxImages = prefersReducedMotion
+    ? []
+    : Array.from(document.querySelectorAll("[data-parallax]"));
 
   let heroHeight = hero ? hero.offsetHeight : 0;
   let isTicking = false;
@@ -829,14 +1011,23 @@ function setupScrollEffects() {
     const scrollY = window.scrollY;
     const viewportHeight = window.innerHeight;
     const maxScroll = document.documentElement.scrollHeight - viewportHeight;
-    const frames = parallaxImages.map((image) => image.parentElement.getBoundingClientRect());
+    const frames = parallaxImages.map((image) =>
+      image.parentElement.getBoundingClientRect(),
+    );
 
     if (header) header.classList.toggle("is-scrolled", scrollY > 24);
-    if (progressBar) progressBar.style.setProperty("--page-progress", maxScroll > 0 ? Math.min(scrollY / maxScroll, 1).toFixed(4) : "0");
+    if (progressBar)
+      progressBar.style.setProperty(
+        "--page-progress",
+        maxScroll > 0 ? Math.min(scrollY / maxScroll, 1).toFixed(4) : "0",
+      );
 
     if (hero && !prefersReducedMotion && scrollY <= heroHeight) {
       const fadeStart = Math.max(0, heroHeight - viewportHeight);
-      const fade = Math.min(Math.max((scrollY - fadeStart) / (viewportHeight * 0.75), 0), 1);
+      const fade = Math.min(
+        Math.max((scrollY - fadeStart) / (viewportHeight * 0.75), 0),
+        1,
+      );
       hero.style.setProperty("--scroll", (scrollY * 0.28).toFixed(1));
       hero.style.setProperty("--progress", fade.toFixed(3));
     }
@@ -847,7 +1038,10 @@ function setupScrollEffects() {
 
       const distance = frame.top + frame.height / 2 - viewportHeight / 2;
       const limit = frame.height * 0.07;
-      const offset = Math.max(-limit, Math.min(limit, distance * Number(image.dataset.parallax)));
+      const offset = Math.max(
+        -limit,
+        Math.min(limit, distance * Number(image.dataset.parallax)),
+      );
       image.style.setProperty("--parallax", `${offset.toFixed(1)}px`);
     });
   }
@@ -867,8 +1061,12 @@ function setupScrollEffects() {
 }
 
 function updateDiscoverLinks(hasUpcomingEvents) {
-  const target = hasUpcomingEvents ? "#prochains-evenements" : "#evenements-passes";
-  document.querySelectorAll("[data-discover]").forEach((link) => link.setAttribute("href", target));
+  const target = hasUpcomingEvents
+    ? "#prochains-evenements"
+    : "#evenements-passes";
+  document
+    .querySelectorAll("[data-discover]")
+    .forEach((link) => link.setAttribute("href", target));
 }
 
 let revealObserver = null;
@@ -877,7 +1075,10 @@ function revealElement(element) {
   element.classList.add("is-visible");
 
   const index = Number(element.style.getPropertyValue("--i")) || 0;
-  window.setTimeout(() => element.removeAttribute("data-reveal"), 2200 + index * 90);
+  window.setTimeout(
+    () => element.removeAttribute("data-reveal"),
+    2200 + index * 90,
+  );
 }
 
 function setupReveal() {
@@ -885,7 +1086,9 @@ function setupReveal() {
   const elements = Array.from(document.querySelectorAll("[data-reveal]"));
 
   document.querySelectorAll("[data-stagger]").forEach((list) => {
-    Array.from(list.children).forEach((child, index) => child.style.setProperty("--i", String(index)));
+    Array.from(list.children).forEach((child, index) =>
+      child.style.setProperty("--i", String(index)),
+    );
   });
 
   if (prefersReducedMotion || !("IntersectionObserver" in window)) {
@@ -894,13 +1097,16 @@ function setupReveal() {
     return;
   }
 
-  revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      revealObserver.unobserve(entry.target);
-      revealElement(entry.target);
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        revealObserver.unobserve(entry.target);
+        revealElement(entry.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
+  );
 
   const viewportHeight = window.innerHeight;
   elements.forEach((element) => {
@@ -915,19 +1121,25 @@ function setupReveal() {
 }
 
 function watchNewReveals() {
-  document.querySelectorAll("#upcoming-list [data-reveal], #past-grid [data-reveal]").forEach((element) => {
-    if (revealObserver) {
-      revealObserver.observe(element);
-    } else {
-      element.removeAttribute("data-reveal");
-    }
-  });
+  document
+    .querySelectorAll("#upcoming-list [data-reveal], #past-grid [data-reveal]")
+    .forEach((element) => {
+      if (revealObserver) {
+        revealObserver.observe(element);
+      } else {
+        element.removeAttribute("data-reveal");
+      }
+    });
 }
 
 function setupHeroIntro() {
   const root = document.documentElement;
 
-  if (!prefersReducedMotion && document.fonts && typeof document.fonts.load === "function") {
+  if (
+    !prefersReducedMotion &&
+    document.fonts &&
+    typeof document.fonts.load === "function"
+  ) {
     const start = () => root.classList.remove("is-waiting");
     window.setTimeout(start, 1500);
     root.classList.add("is-waiting");
@@ -980,8 +1192,14 @@ function setupHeroEffects() {
       frame = window.requestAnimationFrame(() => {
         frame = 0;
         const rect = hero.getBoundingClientRect();
-        hero.style.setProperty("--px", (((pointerX - rect.left) / rect.width - 0.5) * 2).toFixed(3));
-        hero.style.setProperty("--py", (((pointerY - rect.top) / rect.height - 0.5) * 2).toFixed(3));
+        hero.style.setProperty(
+          "--px",
+          (((pointerX - rect.left) / rect.width - 0.5) * 2).toFixed(3),
+        );
+        hero.style.setProperty(
+          "--py",
+          (((pointerY - rect.top) / rect.height - 0.5) * 2).toFixed(3),
+        );
       });
     });
 
@@ -1004,7 +1222,9 @@ function setupHeroEffects() {
     video.setAttribute("muted", "");
     video.setAttribute("playsinline", "");
     video.setAttribute("aria-hidden", "true");
-    video.addEventListener("canplay", () => video.classList.add("is-loaded"), { once: true });
+    video.addEventListener("canplay", () => video.classList.add("is-loaded"), {
+      once: true,
+    });
     video.src = SETTINGS.heroVideo;
     depth.appendChild(video);
   }
@@ -1013,34 +1233,57 @@ function setupHeroEffects() {
 function setupPointerEffects() {
   if (!hasFinePointer || prefersReducedMotion) return;
 
-  document.addEventListener("pointermove", (event) => {
-    const target = event.target instanceof Element ? event.target : null;
-    if (!target) return;
+  document.addEventListener(
+    "pointermove",
+    (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (!target) return;
 
-    const card = target.closest("[data-spotlight]");
-    if (card) {
-      const rect = card.getBoundingClientRect();
-      card.style.setProperty("--mx", `${(event.clientX - rect.left).toFixed(0)}px`);
-      card.style.setProperty("--my", `${(event.clientY - rect.top).toFixed(0)}px`);
-    }
+      const card = target.closest("[data-spotlight]");
+      if (card) {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty(
+          "--mx",
+          `${(event.clientX - rect.left).toFixed(0)}px`,
+        );
+        card.style.setProperty(
+          "--my",
+          `${(event.clientY - rect.top).toFixed(0)}px`,
+        );
+      }
 
-    const media = target.closest("[data-tilt]");
-    if (media) {
-      const rect = media.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      media.style.setProperty("--ry", `${(x * 5).toFixed(2)}deg`);
-      media.style.setProperty("--rx", `${(y * -5).toFixed(2)}deg`);
-    }
-  }, { passive: true });
+      const media = target.closest("[data-tilt]");
+      if (media) {
+        const rect = media.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        media.style.setProperty("--ry", `${(x * 5).toFixed(2)}deg`);
+        media.style.setProperty("--rx", `${(y * -5).toFixed(2)}deg`);
+      }
+    },
+    { passive: true },
+  );
 
-  document.addEventListener("pointerout", (event) => {
-    const media = event.target instanceof Element ? event.target.closest("[data-tilt]") : null;
-    if (media && !(event.relatedTarget instanceof Node && media.contains(event.relatedTarget))) {
-      media.style.setProperty("--rx", "0deg");
-      media.style.setProperty("--ry", "0deg");
-    }
-  }, { passive: true });
+  document.addEventListener(
+    "pointerout",
+    (event) => {
+      const media =
+        event.target instanceof Element
+          ? event.target.closest("[data-tilt]")
+          : null;
+      if (
+        media &&
+        !(
+          event.relatedTarget instanceof Node &&
+          media.contains(event.relatedTarget)
+        )
+      ) {
+        media.style.setProperty("--rx", "0deg");
+        media.style.setProperty("--ry", "0deg");
+      }
+    },
+    { passive: true },
+  );
 }
 
 function setupMarquee() {
@@ -1049,8 +1292,9 @@ function setupMarquee() {
   if (!track || !group) return;
 
   function build() {
-
-    Array.from(track.children).slice(1).forEach((copy) => copy.remove());
+    Array.from(track.children)
+      .slice(1)
+      .forEach((copy) => copy.remove());
 
     const groupWidth = group.getBoundingClientRect().width;
     if (!groupWidth) return;
@@ -1061,7 +1305,10 @@ function setupMarquee() {
     }
 
     track.style.setProperty("--marquee-shift", `-${groupWidth.toFixed(1)}px`);
-    track.style.setProperty("--marquee-duration", `${Math.max(18, Math.round(groupWidth / 60))}s`);
+    track.style.setProperty(
+      "--marquee-duration",
+      `${Math.max(18, Math.round(groupWidth / 60))}s`,
+    );
     track.classList.toggle("is-ready", !prefersReducedMotion);
   }
 
@@ -1084,15 +1331,21 @@ function setupMarquee() {
 function setupOffscreenPause() {
   if (!("IntersectionObserver" in window)) return;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => entry.target.classList.toggle("is-offscreen", !entry.isIntersecting));
-  }, { rootMargin: "80px 0px" });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) =>
+        entry.target.classList.toggle("is-offscreen", !entry.isIntersecting),
+      );
+    },
+    { rootMargin: "80px 0px" },
+  );
 
-  document.querySelectorAll(".hero, .marquee, .seal").forEach((element) => observer.observe(element));
+  document
+    .querySelectorAll(".hero, .marquee, .seal")
+    .forEach((element) => observer.observe(element));
 }
 
 function setupLightbox() {
-
   const root = document.createElement("div");
   root.className = "lightbox";
   root.setAttribute("role", "dialog");
@@ -1138,7 +1391,12 @@ function setupLightbox() {
     image.style.setProperty("--shift", `${direction * 28}px`);
     image.classList.add("is-changing");
 
-    const fadeOut = new Promise((resolve) => window.setTimeout(resolve, direction === 0 || prefersReducedMotion ? 0 : 220));
+    const fadeOut = new Promise((resolve) =>
+      window.setTimeout(
+        resolve,
+        direction === 0 || prefersReducedMotion ? 0 : 220,
+      ),
+    );
     const loaded = new Promise((resolve) => {
       const loader = new Image();
       loader.onload = resolve;
@@ -1157,7 +1415,9 @@ function setupLightbox() {
 
       image.style.setProperty("--shift", `${direction * -28}px`);
       window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => image.classList.remove("is-changing"));
+        window.requestAnimationFrame(() =>
+          image.classList.remove("is-changing"),
+        );
       });
     });
 
@@ -1187,13 +1447,21 @@ function setupLightbox() {
   function close() {
     root.classList.remove("is-open");
     lockScroll("lightbox", false);
-    if (trigger && document.contains(trigger)) trigger.focus({ preventScroll: true });
+    if (trigger && document.contains(trigger))
+      trigger.focus({ preventScroll: true });
   }
 
   document.addEventListener("click", (event) => {
-    const opener = event.target instanceof Element ? event.target.closest("[data-lightbox]") : null;
+    const opener =
+      event.target instanceof Element
+        ? event.target.closest("[data-lightbox]")
+        : null;
     if (!opener) return;
-    open(state.galleries[opener.dataset.lightbox], Number(opener.dataset.index) || 0, opener);
+    open(
+      state.galleries[opener.dataset.lightbox],
+      Number(opener.dataset.index) || 0,
+      opener,
+    );
   });
 
   closeButton.addEventListener("click", close);
@@ -1208,25 +1476,40 @@ function setupLightbox() {
     if (!isOpen()) return;
 
     if (event.key === "Escape") close();
-    else if (event.key === "ArrowLeft" && items.length > 1) show(currentIndex - 1, -1);
-    else if (event.key === "ArrowRight" && items.length > 1) show(currentIndex + 1, 1);
+    else if (event.key === "ArrowLeft" && items.length > 1)
+      show(currentIndex - 1, -1);
+    else if (event.key === "ArrowRight" && items.length > 1)
+      show(currentIndex + 1, 1);
     else trapFocus(event, [closeButton, prevButton, nextButton]);
   });
 
   let touchStartX = 0;
   let touchStartY = 0;
 
-  stage.addEventListener("touchstart", (event) => {
-    touchStartX = event.changedTouches[0].clientX;
-    touchStartY = event.changedTouches[0].clientY;
-  }, { passive: true });
+  stage.addEventListener(
+    "touchstart",
+    (event) => {
+      touchStartX = event.changedTouches[0].clientX;
+      touchStartY = event.changedTouches[0].clientY;
+    },
+    { passive: true },
+  );
 
-  stage.addEventListener("touchend", (event) => {
-    const deltaX = event.changedTouches[0].clientX - touchStartX;
-    const deltaY = event.changedTouches[0].clientY - touchStartY;
-    if (items.length < 2 || Math.abs(deltaX) < 50 || Math.abs(deltaX) < Math.abs(deltaY) * 1.5) return;
-    show(currentIndex + (deltaX < 0 ? 1 : -1), deltaX < 0 ? 1 : -1);
-  }, { passive: true });
+  stage.addEventListener(
+    "touchend",
+    (event) => {
+      const deltaX = event.changedTouches[0].clientX - touchStartX;
+      const deltaY = event.changedTouches[0].clientY - touchStartY;
+      if (
+        items.length < 2 ||
+        Math.abs(deltaX) < 50 ||
+        Math.abs(deltaX) < Math.abs(deltaY) * 1.5
+      )
+        return;
+      show(currentIndex + (deltaX < 0 ? 1 : -1), deltaX < 0 ? 1 : -1);
+    },
+    { passive: true },
+  );
 }
 
 function refreshEvents() {
@@ -1239,7 +1522,10 @@ function refreshEvents() {
     .sort((a, b) => {
       const startA = getEventStart(a);
       const startB = getEventStart(b);
-      return (startA ? startA.getTime() : farFuture) - (startB ? startB.getTime() : farFuture);
+      return (
+        (startA ? startA.getTime() : farFuture) -
+        (startB ? startB.getTime() : farFuture)
+      );
     });
 
   state.past = events
@@ -1256,13 +1542,16 @@ function refreshEvents() {
     () => updateWhatsAppLinks(state.upcoming),
     () => updateBooking(state.upcoming),
     startCountdowns,
-    () => { if (state.isStarted) watchNewReveals(); }
+    () => {
+      if (state.isStarted) watchNewReveals();
+    },
   ]);
 }
 
 function watchDayChange() {
   const check = () => {
-    if (!document.hidden && new Date().toDateString() !== state.day) refreshEvents();
+    if (!document.hidden && new Date().toDateString() !== state.day)
+      refreshEvents();
   };
 
   window.setInterval(check, 60000);
@@ -1287,7 +1576,7 @@ function init() {
     setupMarquee,
     setupOffscreenPause,
     setupLightbox,
-    watchDayChange
+    watchDayChange,
   ]);
 
   state.isStarted = true;
