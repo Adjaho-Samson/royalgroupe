@@ -36,6 +36,19 @@ const WHATSAPP_MESSAGES = {
     "Bonjour Royal Group !\n\n" +
     "Je vous contacte pour une demande d’information.\n\n" +
     "Merci.",
+
+  maflyt:
+    "Bonjour MAFLYT !\n\n" +
+    "Je viens de la part de ROYAL GROUPE. Je souhaite profiter de la promotion sur les ordinateurs.\n\n" +
+    "Pouvez-vous me renseigner sur les modèles disponibles ?\n\n" +
+    "Merci.",
+
+  maflytFormations:
+    "Bonjour MAFLYT !\n\n" +
+    "Je viens de la part de ROYAL GROUPE. Je souhaite m’inscrire à une formation " +
+    "(informatique, secrétariat bureautique, maintenance ou sérigraphie).\n\n" +
+    "Pouvez-vous me rappeler les dates de rentrée, les durées et les frais ?\n\n" +
+    "Merci.",
 };
 
 const SETTINGS = {
@@ -135,6 +148,27 @@ const EVENTS = [
       "Grande salle de gala aux tables dressées de noir et d’or, sous des lustres en cristal",
     demo: true,
   },
+  {
+    id: "summer-night-2026",
+    title: "SUMMER NIGHT",
+    category: "Soirée",
+    date: "2026-12-31",
+    time: "22:00",
+    location:
+      "Porto-Novo, Terrain Classico Barça Réal (DKP, 2ᵉ voie à gauche après l'église Christianiste Céleste)",
+    description:
+      "« Tout le monde sera au Summer Night le 31 décembre. » La grande soirée de fin d'année présentée par MOOD PARTY X SUMMER NIGHT X ROYALE GROUPE, à 22 h au Terrain Classico. " +
+      "DJ : LIBOZO DeeJay — MCI : KARL DeeJay, LiLä DeeJay. Passe unique 1 000 F. " +
+      "Réservations : 01 44 60 39 10 / 01 29 70 06 82 / 01 56 39 00 04 / 01 90 37 23 79.",
+    image: "assets/events/summer-night.webp",
+    thumb: "assets/events/summer-night-vignette.webp",
+    imageAlt:
+      "Affiche officielle SUMMER NIGHT : le 31 décembre à 22 h, passe unique 1 000 F, lieu Classico, Porto-Novo — Terrain Classico Barça Réal, quatre numéros de réservation",
+    gallery: ["assets/events/summer-night-affiche-bis.webp"],
+    tickets: [{ name: "Passe unique", price: "1 000 FCFA" }],
+    ticketNote:
+      "Entrée à 22 h précises. Réservation par WhatsApp ou auprès des numéros de l’affiche.",
+  },
 ];
 
 const prefersReducedMotion = window.matchMedia(
@@ -149,7 +183,7 @@ const state = {
   past: [],
   day: "",
   isStarted: false,
-  galleries: { past: [], upcoming: [] },
+  galleries: { past: [], upcoming: [], maflyt: [] },
 };
 
 function runSteps(steps) {
@@ -304,8 +338,9 @@ function isWhatsAppConfigured() {
   return getWhatsAppNumber().length >= 8;
 }
 
-function buildWhatsAppUrl(message) {
-  return `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(message)}`;
+function buildWhatsAppUrl(message, number) {
+  const digits = String(number || "").replace(/\D/g, "") || getWhatsAppNumber();
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }
 
 function getEventMessage(event) {
@@ -500,14 +535,22 @@ function renderUpcomingEvents(upcoming, now) {
   const photos = [];
   const cards = upcoming.map((event, index) => {
     let photoIndex = -1;
-    if (event.image) {
+    const eventPhotos = [event.image]
+      .concat(Array.isArray(event.gallery) ? event.gallery : [])
+      .filter(Boolean);
+    if (eventPhotos.length) {
       photoIndex = photos.length;
-      photos.push({
-        src: event.image,
-        alt: event.imageAlt || event.title,
-        title: event.title,
-        meta: eventCaption(event),
-      });
+      eventPhotos.forEach((src, photoNumber) =>
+        photos.push({
+          src,
+          alt:
+            photoNumber === 0
+              ? event.imageAlt || event.title
+              : `${event.title} — affiche alternative`,
+          title: event.title,
+          meta: eventCaption(event),
+        }),
+      );
     }
     return ticketTemplate(event, index === 0, photoIndex, now);
   });
@@ -695,6 +738,18 @@ function setupImageFallback() {
 
       if (image.matches(".ticket__img, .past-card__img")) {
         image.outerHTML = `<div class="media-fallback">${brandMark()}</div>`;
+      } else if (image.matches(".partnership__flyer img")) {
+        const button = image.closest(".partnership__flyer-open");
+        if (button) {
+          button.disabled = true;
+          button.removeAttribute("data-lightbox");
+          image.replaceWith(
+            Object.assign(document.createElement("span"), {
+              className: "partnership__flyer-missing",
+              textContent: "Le flyer officiel MAFLYT sera affiché ici.",
+            }),
+          );
+        }
       } else if (image.closest(".hero-next__thumb")) {
         image.outerHTML = brandMark();
       }
@@ -716,7 +771,8 @@ function updateWhatsAppLinks(upcoming) {
         ? bookingMessage
         : WHATSAPP_MESSAGES[type] || WHATSAPP_MESSAGES.contact;
 
-    link.href = buildWhatsAppUrl(message);
+    // data-whatsapp-number permet de viser un autre numéro (ex. le secrétariat MAFLYT).
+    link.href = buildWhatsAppUrl(message, link.dataset.whatsappNumber);
     link.target = "_blank";
     link.rel = "noopener noreferrer";
   });
@@ -1513,6 +1569,20 @@ function setupLightbox() {
 }
 
 function refreshEvents() {
+  state.galleries.maflyt = [
+    {
+      src: "assets/images/maflyt-promotion.webp",
+      alt: "Flyer officiel MAFLYT : grande promotion sur nos ordinateurs, 20 pour cent de réduction sur tous les PC du 1er novembre au 1er décembre, huit configurations avec prix barrés et prix promo, trois mois de garantie",
+      title: "MAFLYT — Grande promotion sur nos ordinateurs",
+      meta: "-20% sur tous les PC · 3 mois de garantie · du 1er novembre au 1er décembre",
+    },
+    {
+      src: "assets/images/maflyt-formations.webp",
+      alt: "Flyer officiel MAFLYT : formations en secrétariat bureautique, informatique, maintenance et sérigraphie, avec le catalogue des ordinateurs portatifs",
+      title: "MAFLYT — Formations et catalogue des portatifs",
+      meta: "80% pratique, 20% théorie · 1 apprenant, 1 ordinateur · du lundi au vendredi",
+    },
+  ];
   const now = new Date();
   const events = EVENTS.map(normalizeEvent);
   const farFuture = Number.MAX_SAFE_INTEGER;

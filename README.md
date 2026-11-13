@@ -1,7 +1,8 @@
 # Royal Group — site vitrine
 
 Site d'une seule page pour **Royal Group** (concerts, spectacles, soirées festives, grandes rencontres) :
-accueil, à propos, événements passés, prochains événements, réservation par WhatsApp et contact.
+accueil, à propos, événements passés, prochains événements, réservation par WhatsApp, contact et
+partenariat MAFLYT (ordinateurs en promotion + formations informatiques).
 
 Le site est écrit en HTML, CSS et JavaScript simples : **aucune installation, aucune dépendance**.
 
@@ -22,10 +23,10 @@ Le site est écrit en HTML, CSS et JavaScript simples : **aucune installation, a
 
 ```
 index.html            Structure et textes de la page
-css/style.css         Mise en forme (20 parties commentées, sommaire en tête de fichier)
+css/style.css         Mise en forme
 js/script.js          Configuration, événements et interactions
 assets/
-  images/             Photos du Hero et de la section « À propos », image de partage
+  images/             Photos du Hero, de la section « À propos », image de partage, flyers MAFLYT
   events/             Photos et affiches des événements
   logo/               Logo, symbole, favicons
   fonts/              Polices (hébergées avec le site) et leurs licences
@@ -34,17 +35,24 @@ assets/
 
 ## 3. Mettre le site à jour
 
-Presque tout se règle **en haut du fichier `js/script.js`** (parties 1 et 2).
+Presque tout se règle **en tête du fichier `js/script.js`** (le bloc de configuration).
 
-### Numéro WhatsApp — à faire en premier
+### Numéro WhatsApp
 
 ```js
-const WHATSAPP_NUMBER = "";   // format international, sans espace ni « + ». Ex. : "229XXXXXXXXXX"
+const WHATSAPP_NUMBER = "2290144603910";   // format international, sans espace ni « + »
 ```
 
-Tant que cette valeur est vide, le site est en **mode démonstration** : les boutons ouvrent
-WhatsApp avec le message prérempli mais sans destinataire, et un message l'indique au visiteur.
-Dès que le numéro est renseigné, tous les boutons de réservation et de contact pointent vers lui.
+Les boutons de réservation et de contact utilisent ce numéro. Le message propre à chaque action
+est prérempli et encodé dans l’URL WhatsApp.
+
+Un bouton peut viser un autre numéro (cas du partenaire) avec l’attribut `data-whatsapp-number` :
+
+```html
+<a href="https://wa.me/2290146834697" data-whatsapp="maflytFormations" data-whatsapp-number="2290146834697">
+```
+
+Le message reste lu dans `WHATSAPP_MESSAGES` ; seul le destinataire change.
 
 ### Coordonnées
 
@@ -86,8 +94,10 @@ Le premier événement à venir est mis en avant (compte à rebours, rappel dans
 
 ### Textes
 
-Dans `index.html`, les passages à personnaliser sont repérés par le commentaire
-`<!-- TEXTE MODIFIABLE … -->`.
+Les textes sont écrits directement dans `index.html`, une section par bloc
+(`#accueil`, `#a-propos`, `#evenements-passes`, `#prochains-evenements`, `#reservation`,
+`#contact`, `#partenariat-maflyt`). Les tarifs et les programmes MAFLYT de la section 07
+viennent des flyers officiels : pensez à les actualiser à chaque nouvelle promotion.
 
 ### Images
 
@@ -95,6 +105,23 @@ Dans `index.html`, les passages à personnaliser sont repérés par le commentai
   puis indiquez leur chemin dans `EVENTS` ou dans `index.html`.
 - Formats acceptés : `.webp`, `.jpg`, `.png`. Visez moins de 300 Ko par image
   (environ 1 000 px de large pour une affiche, 1 920 px pour le Hero).
+- Les affiches et les flyers sont des visuels officiels : ils ne sont **pas recadrés**, seulement
+  compressés. Les cartes d’événement étant plus larges que les affiches, une affiche carrée est
+  posée sur un fond flouté (bandes hautes et basses) plutôt que rognée.
+
+Recette utilisée pour régénérer un visuel (ImageMagick) :
+
+```bash
+# compression simple d'un flyer
+convert entree.jpg -colorspace sRGB -strip -quality 80 -define webp:method=6 sortie.webp
+
+# affiche carrée -> format 4:5 des cartes, sur fond flouté
+convert entree.jpg -colorspace sRGB -strip -resize 928x928 poster.png
+convert entree.jpg -colorspace sRGB -resize 928x1160^ -gravity center -extent 928x1160 \
+  -blur 0x22 -evaluate multiply 0.55 fond.png
+convert fond.png poster.png -gravity center -composite -quality 82 \
+  -define webp:method=6 assets/events/summer-night.webp
+```
 
 ### Vidéo d'arrière-plan (facultatif)
 
@@ -105,17 +132,36 @@ Placez un fichier dans `assets/videos/` et renseignez `SETTINGS.heroVideo`
 
 Variables au début de `css/style.css` (partie « Variables »).
 
-## 4. Contenu de démonstration — à remplacer
+## 4. Événement et contenus actuels
 
-- **Événements :** les cinq événements fournis sont des exemples (noms, dates, lieux et tarifs
-  fictifs). Ils portent `demo: true` et s'affichent avec l'étiquette « Démo ».
-  Remplacez-les par les événements officiels, sans la ligne `demo`.
-  Les deux exemples « à venir » (27 février et 15 mai 2027) passeront d'eux-mêmes
-  dans les événements passés après ces dates.
-- **Photos :** tous les visuels sont des **images d'illustration générées par IA**,
-  pas des photos d'événements Royal Group. Remplacez-les par de vraies photos dès que possible.
-- **Coordonnées :** renseignées (téléphone / WhatsApp : +229 01 44 60 39 10, e-mail : duhameldemesse@gmail.com, page Facebook).
-  Instagram et les autres réseaux restent vides : le site affiche « Bientôt disponible » à leur place.
+- **Événement à venir :** SUMMER NIGHT, le 31 décembre 2026 à 22 h au Terrain Classico Barça Réal,
+  Porto-Novo. La programmation, les quatre contacts de réservation et le passe unique à 1 000 FCFA
+  sont configurés dans `EVENTS`. Le site classe automatiquement l’événement, affiche le compte à
+  rebours et prépare la réservation WhatsApp ; à moins de 30 jours de la date, la carte ajoute
+  seule la pastille « Bientôt ». Les événements passés restent vides jusqu’à la publication de
+  souvenirs.
+- **Visuels officiels intégrés :** les quatre flyers fournis ont été compressés et déposés dans le
+  site (plus aucune image « attendue »).
+  - `assets/events/summer-night.webp` — affiche « Tout le monde sera au Summer Night » (carrée,
+    posée sur fond flouté au format 4:5 des cartes) : carte mise en avant et galerie.
+  - `assets/events/summer-night-vignette.webp` — même affiche en 640 px : miniature de l’accueil.
+  - `assets/events/summer-night-affiche-bis.webp` — seconde affiche officielle (« Entrée 1000 F »,
+    DJ LIBOZO, MCI KARL et LiLä), consultable en grand depuis la carte.
+  - `assets/images/maflyt-promotion.webp` et `assets/images/maflyt-formations.webp` — les deux
+    flyers MAFLYT (promotion des ordinateurs, formations + catalogue).
+  Les images de fond et les photos « À propos » restent des photographies d’illustration.
+- **Partenariat MAFLYT :** la section 07 présente la promotion d’ordinateurs (les huit tarifs du
+  flyer, prix barrés et prix promo), puis les **formations MAFLYT** : quatre filières (informatique,
+  secrétariat bureautique, maintenance, sérigraphie), les parcours, les durées (3 / 6 / 12 mois),
+  le rythme et les horaires, avec le flyer des formations à agrandir. Les deux flyers s’ouvrent en
+  galerie ; le bouton principal ouvre WhatsApp au numéro Royal Group avec le message
+  « Je viens de la part de ROYAL GROUPE », celui des formations au secrétariat MAFLYT
+  (+229 01 46 83 46 97). Coordonnées reprises des deux flyers : comptoir +229 01 03 03 30 44 et
+  +229 01 04 63 45 67 (maflyt4@gmail.com), secrétariat +229 01 43 20 20 44 (maflyt24@gmail.com,
+  www.maflyt.net).
+- **Coordonnées Royal Group :** téléphone / WhatsApp : +229 01 44 60 39 10, e-mail :
+  duhameldemesse@gmail.com, page Facebook. Instagram et les autres réseaux restent vides ; le site
+  affiche « Bientôt disponible » à leur place.
 
 ## 5. Mise en ligne
 
