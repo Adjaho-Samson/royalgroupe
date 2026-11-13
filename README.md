@@ -178,7 +178,11 @@ pour les robots de WhatsApp, Facebook, LinkedIn ou X.
 - `og:title` / `og:description` et leurs équivalents `twitter:*` définissent le texte.
 - `og:image`, `og:image:secure_url` et `twitter:image` utilisent la même URL HTTPS absolue.
 - Le visuel `assets/images/partage-royal-group.jpg` est un JPEG **1200 × 630**
-  (environ 111 Ko), avec des textes alternatifs pour Open Graph et X.
+  (environ 140 Ko) : photographie du hero du site, **logo officiel**
+  (`assets/logo/royal-group-logo.svg`) en haut à gauche et slogan de la marque en
+  bas, dans la police Anton et les ors de la charte. Des textes alternatifs
+  accompagnent Open Graph et X. Pour refaire ce visuel, repartez du logo et des
+  polices du dossier `assets/` afin de rester fidèle à l'identité du site.
 
 **En cas de changement de domaine**, mettez à jour les cinq URL ci-dessus dans
 `index.html` (canonical, og:url et les trois références d'image). N'utilisez pas
