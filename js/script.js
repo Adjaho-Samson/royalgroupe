@@ -119,7 +119,7 @@ const EVENTS = [
       "Porto-Novo, Terrain Classico Barça Réal (DKP, 2ᵉ voie à gauche après l'église Christianiste Céleste)",
     description:
       "« Tout le monde sera au Summer Night le 31 décembre. » La grande soirée de fin d'année présentée par MOOD PARTY X SUMMER NIGHT X ROYALE GROUPE, à 22 h au Terrain Classico. " +
-      "DJ : LIBOZO DeeJay — MCI : KARL DeeJay, LiLä DeeJay. Passe unique 1 000 F. " +
+      "DJ : LIBOZO DeeJay — MCI : KARL DeeJay, LaLa Deejay. Passe unique 1 000 F. " +
       "Réservations : 01 44 60 39 10 / 01 29 70 06 82 / 01 56 39 00 04 / 01 90 37 23 79.",
     image: "assets/events/summer-night.webp",
     thumb: "assets/events/summer-night-vignette.webp",
