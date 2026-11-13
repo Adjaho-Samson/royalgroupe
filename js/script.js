@@ -57,45 +57,6 @@ const SETTINGS = {
 
 const EVENTS = [
   {
-    id: "royal-golden-festival",
-    title: "Royal Golden Festival",
-    category: "Festival",
-    date: "2027-02-27",
-    time: "18:00",
-    location: "Lieu à confirmer",
-    description:
-      "Une scène à ciel ouvert, des artistes jusqu’au bout de la nuit et un show de lumières grand format : le grand rendez-vous festif signé Royal Group.",
-    image: "assets/events/festival-plein-air.webp",
-    thumb: "assets/events/festival-plein-air-vignette.webp",
-    imageAlt:
-      "Grande scène de festival en plein air au crépuscule, devant une foule immense",
-    tickets: [
-      { name: "Ticket Standard", price: "Tarif à confirmer" },
-      { name: "Ticket VIP", price: "Tarif à confirmer" },
-    ],
-    demo: true,
-  },
-  {
-    id: "royal-dj-experience",
-    title: "LaLa Deejay",
-    category: "Soirée DJ",
-    date: "2027-05-15",
-    time: "21:00",
-    location: "Lieu à confirmer",
-    description:
-      "Un DJ set grand format, des effets pyrotechniques et une foule prête à tout donner jusqu’au bout de la nuit.",
-    image: "assets/events/dj-set.webp",
-    thumb: "assets/events/dj-set-vignette.webp",
-    imageAlt:
-      "DJ de dos, bras levé, face à une foule immense entourée de gerbes d’étincelles",
-    tickets: [
-      { name: "Pass Simple", price: "Tarif à confirmer" },
-      { name: "Pass VIP", price: "Tarif à confirmer" },
-    ],
-    demo: true,
-  },
-
-  {
     id: "royal-night-live",
     title: "Royal Night Live",
     category: "Concert",
