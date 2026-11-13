@@ -168,12 +168,35 @@ Variables au début de `css/style.css` (partie « Variables »).
 Le dossier se dépose tel quel sur n'importe quel hébergement statique
 (GitHub Pages, Netlify, hébergement mutualisé…).
 
-Après la mise en ligne, dans l'en-tête de `index.html`, remplacez le chemin de l'image de partage
-par son adresse complète, sinon l'aperçu ne s'affichera pas sur WhatsApp et les réseaux sociaux :
+### Aperçu de partage (Open Graph)
 
-```html
-<meta property="og:image" content="https://votre-domaine.com/assets/images/partage-royal-group.jpg">
+L'adresse publique référencée dans `index.html` est **https://royalgroupe.vercel.app/**.
+Les balises sont présentes dans le HTML initial : aucun JavaScript n'est nécessaire
+pour les robots de WhatsApp, Facebook, LinkedIn ou X.
+
+- `canonical` et `og:url` désignent l'accueil public.
+- `og:title` / `og:description` et leurs équivalents `twitter:*` définissent le texte.
+- `og:image`, `og:image:secure_url` et `twitter:image` utilisent la même URL HTTPS absolue.
+- Le visuel `assets/images/partage-royal-group.jpg` est un JPEG **1200 × 630**
+  (environ 111 Ko), avec des textes alternatifs pour Open Graph et X.
+
+**En cas de changement de domaine**, mettez à jour les cinq URL ci-dessus dans
+`index.html` (canonical, og:url et les trois références d'image). N'utilisez pas
+l'adresse temporaire d'une prévisualisation. L'image doit rester publique, sans connexion,
+et être servie avec le type `image/jpeg` ; la page doit être accessible aux robots.
+
+Vérification locale (sans dépendance supplémentaire) :
+
+```bash
+python3 -m unittest discover -s tests -v
 ```
+
+Après déploiement, vérifiez l'URL de la page dans le **Sharing Debugger de Facebook**
+et le **Post Inspector de LinkedIn**, puis demandez une nouvelle collecte si un ancien
+aperçu reste en cache. Testez aussi un nouveau partage WhatsApp. La présentation exacte
+dépend de chaque application ; les anciens messages ne sont pas forcément actualisés.
+Si le visuel est remplacé et reste en cache, utilisez un nouveau nom de fichier et
+mettez à jour les trois références d'image ensemble.
 
 ## 6. Crédits
 
